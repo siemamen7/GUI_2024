@@ -1,0 +1,46 @@
+﻿<Page x:Class="WpfApp001.View.CoWorkersMedicalPageInterface"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfApp001.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="CoWorkersMedicalPageInterface">
+
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <!-- First Name Input -->
+        <StackPanel Grid.Column="0" Margin="5">
+            <TextBlock Text="Imię" FontWeight="Bold" Margin="0,0,0,5" />
+            <TextBox Name="FirstNameTextBox" Width="150" Height="30"/>
+        </StackPanel>
+
+        <!-- Last Name Input -->
+        <StackPanel Grid.Column="1" Margin="5">
+            <TextBlock Text="Nazwisko" FontWeight="Bold" Margin="0,0,0,5" />
+            <TextBox Name="LastNameTextBox" Width="150" Height="30"/>
+        </StackPanel>
+
+        <!-- Position Selection -->
+        <StackPanel Grid.Column="2" Margin="5">
+            <TextBlock Text="Funkcja" FontWeight="Bold" Margin="0,0,0,5" />
+            <ComboBox Name="PositionComboBox" Width="150" Height="30">
+                <ComboBoxItem Content="Lekarz"/>
+                <ComboBoxItem Content="Pielęgniarka"/>
+                <ComboBoxItem Content="Fizjoterapeuta"/>
+                <ComboBoxItem Content="Recepcjonistka"/>
+                <ComboBoxItem Content="Administrator"/>
+            </ComboBox>
+        </StackPanel>
+
+        <!-- Add Employee Button -->
+
+    </Grid>
+</Page>

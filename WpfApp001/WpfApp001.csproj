@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Styles\Icons\logout.png" />
+    <None Remove="Styles\Icons\stethoscope.png" />
+    <None Remove="Styles\Icons\workplace.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Model\" />
+    <Folder Include="MVVM\" />
+    <Folder Include="Styles\Pictures\" />
+    <Folder Include="ViewModel\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Styles\Icons\logout.png" />
+    <Resource Include="Styles\Icons\stethoscope.png" />
+    <Resource Include="Styles\Icons\workplace.png" />
+  </ItemGroup>
+
+</Project>
