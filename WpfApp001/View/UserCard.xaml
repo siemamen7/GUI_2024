@@ -22,9 +22,9 @@
             </Grid.ColumnDefinitions>
 
                 <TextBlock Text="Użytkownik:" FontWeight="Bold" FontSize="16"/>
-            <TextBlock Text="[UserName]" Grid.Row="0" Grid.Column="1" Margin="10,0,0,0" FontSize="16"/>
+            <TextBlock Grid.Row="0" Grid.Column="1" Margin="10,0,0,0" FontSize="16"><Run Text="[UserNa"/><Run Text="me]"/></TextBlock>
 
-                <TextBlock Text="Stanowisko:" FontWeight="Bold" FontSize="16" Grid.Row="1"/>
+            <TextBlock Text="Stanowisko:" FontWeight="Bold" FontSize="16" Grid.Row="1"/>
                 <TextBlock Text="[Position]" Grid.Row="1" Grid.Column="1" Margin="10,0,0,0" FontSize="16"/>
 
                 <TextBlock Text="Data i godzina:" FontWeight="Bold" FontSize="16" Grid.Row="2"/>
