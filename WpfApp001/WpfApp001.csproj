@@ -22,6 +22,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MySql.Data" Version="9.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Styles\Icons\logout.png" />
     <Resource Include="Styles\Icons\stethoscope.png" />
     <Resource Include="Styles\Icons\workplace.png" />
