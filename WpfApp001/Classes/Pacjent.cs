@@ -20,8 +20,6 @@ namespace WpfApp001.Classes
         public required string DataUrodzenia { get; init; }
         public required string DataZgonu { get; init; }
         public required string DataRejestracji { get; init; }
-    
-
 
     }
 }

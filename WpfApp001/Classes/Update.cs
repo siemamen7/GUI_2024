@@ -8,10 +8,11 @@ using MySql.Data.MySqlClient;
 
 namespace WpfApp001.Classes
 {
-    internal class Update
+    internal static class Update
     {
-        private string connectionString = "Server=projekt-interfejsy.mysql.database.azure.com;Database=szpital;Uid=szczuras;Pwd=Interfejsy123;SslMode=Required;";
-        public void updatePacjenci()
+
+        private static string connectionString = "Server=projekt-interfejsy.mysql.database.azure.com;Database=szpital;Uid=szczuras;Pwd=Interfejsy123;SslMode=Required;";
+        public static void UpdatePacjenci()
         {
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {

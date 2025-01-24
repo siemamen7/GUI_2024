@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp001.Classes;
 
 namespace WpfApp001.View
 {
@@ -28,6 +29,7 @@ namespace WpfApp001.View
         private void MoveTODO(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Uri("View/LoginPage.xaml", UriKind.Relative));
+            Update.UpdatePacjenci();
         }
 
 
