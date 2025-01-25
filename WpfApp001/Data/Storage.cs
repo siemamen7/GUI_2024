@@ -95,22 +95,31 @@ namespace WpfApp001.Data
                 var elementIdProperty = typeof(T).GetProperty("Id");
                 if (elementIdProperty == null)
                 {
-                    throw new ArgumentException($"Type {typeof(T).Name} does not have a property named 'Id'");
+                    throw new ArgumentException($"Type {typeof(T).Name} does not have a property named 'Id' NEDOBRE NOVINKY BO POWINIEN MIEC");
                 }
 
                 var elementId = elementIdProperty.GetValue(element);
-                var existingElement = dbSet.Find(elementId);
-
-                if (existingElement != null)
+                if (elementId == null || elementId.Equals(0))
                 {
-                    // Update the existing entity in the database
-                    context.Entry(existingElement).CurrentValues.SetValues(element);
+                    dbSet.Add(element);
                 }
                 else
                 {
-                    // Add the new entity to the database
-                    dbSet.Add(element);
+                    var existingElement = dbSet.Find(elementId);
+
+                    if (existingElement != null)
+                    {
+                        // Update the existing entity in the database
+                        context.Entry(existingElement).CurrentValues.SetValues(element);
+                    }
+                    else
+                    {
+                        // Add the new entity to the database
+                        dbSet.Add(element);
+                    }
+
                 }
+                
 
                 // Save changes to the database
                 context.SaveChanges();
@@ -147,6 +156,10 @@ namespace WpfApp001.Data
                             // Add the new element to the ObservableCollection
                             collection.Add(element);
                         }
+                    }
+                    else
+                    {
+                        throw new ArgumentException($"Type {typeof(T).Name} does not have a property named 'Id' NEDOBRE NOVINKY BO POWINIEN MIEC");
                     }
                 }
             }
