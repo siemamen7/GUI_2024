@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using WpfApp001.Classes;
+using WpfApp001.Data;
 
 namespace WpfApp001.View
 {
@@ -24,12 +24,12 @@ namespace WpfApp001.View
         public StartupPanel()
         {
             InitializeComponent();
+            var storage = Storage.Instance;
         }
 
         private void MoveTODO(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Uri("View/LoginPage.xaml", UriKind.Relative));
-            Update.UpdatePacjenci();
         }
 
 
