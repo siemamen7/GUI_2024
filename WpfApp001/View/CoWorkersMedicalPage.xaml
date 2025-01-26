@@ -10,14 +10,52 @@
 
     <Grid>
         <!-- DataGrid to display employee information -->
-        <DataGrid Name="EmployeesDataGrid" AutoGenerateColumns="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <DataGrid Style="{StaticResource CustomDataGridStyle}" 
+                  Name="EmployeesDataGrid" 
+                  AutoGenerateColumns="False" 
+                  HorizontalAlignment="Stretch" 
+                  VerticalAlignment="Stretch">
             <DataGrid.Columns>
                 <!-- Define columns for the table -->
-                <DataGridTextColumn Header="Imię" Binding="{Binding FirstNamse}" Width="*" />
-                <DataGridTextColumn Header="Nazwisko" Binding="{Binding LastNamse}" Width="*" />
-                <DataGridTextColumn Header="Funkcja" Binding="{Binding Positison}" Width="*" />
-                <DataGridTextColumn Header="Kontakt" Binding="{Binding Contasct}" Width="*" />
-                <DataGridTextColumn Header="Informacje" Binding="{Binding AdditionalInsfo}" Width="*" />
+                <DataGridTextColumn Header="Imię" Binding="{Binding FirstName}" Width="*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextWrapping" Value="Wrap" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Header="Nazwisko" Binding="{Binding LastName}" Width="*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextWrapping" Value="Wrap" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Header="Funkcja" Binding="{Binding Position}" Width="*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextWrapping" Value="Wrap" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Header="Kontakt" Binding="{Binding Contact}" Width="*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextWrapping" Value="Wrap" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Header="Informacje" Binding="{Binding AdditionalInfo}" Width="*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextWrapping" Value="Wrap" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

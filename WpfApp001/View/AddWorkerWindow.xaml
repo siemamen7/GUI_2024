@@ -22,49 +22,49 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <TextBlock Foreground="White" FontWeight="Bold" Grid.Row="0" Height="20" HorizontalAlignment="Center">
+        <TextBlock Foreground="#d0d6d6" FontWeight="Bold" Grid.Row="0" Height="20" HorizontalAlignment="Center">
             Imię
             <Run Foreground="Red">*</Run>
         </TextBlock>
-        <TextBlock Foreground="White" FontWeight="Bold" Grid.Row="1" Height="20" HorizontalAlignment="Center">
+        <TextBlock Foreground="#d0d6d6" FontWeight="Bold" Grid.Row="1" Height="20" HorizontalAlignment="Center">
             Nazwisko
             <Run Foreground="Red">*</Run>
         </TextBlock>
-        <TextBlock Foreground="White" FontWeight="Bold" Grid.Row="2" Height="20" HorizontalAlignment="Center">
+        <TextBlock Foreground="#d0d6d6" FontWeight="Bold" Grid.Row="2" Height="20" HorizontalAlignment="Center">
             PESEL
             <Run Foreground="Red">*</Run>
         </TextBlock>
-        <TextBlock Foreground="White" FontWeight="Bold" Grid.Row="3" Height="20" HorizontalAlignment="Center">
+        <TextBlock Foreground="#d0d6d6" FontWeight="Bold" Grid.Row="3" Height="20" HorizontalAlignment="Center">
             Data urodzenia
             <Run Foreground="Red">*</Run>
         </TextBlock>
-        <TextBlock Foreground="White" FontWeight="Bold" Grid.Row="4" Height="20" HorizontalAlignment="Center">
+        <TextBlock Foreground="#d0d6d6" FontWeight="Bold" Grid.Row="4" Height="20" HorizontalAlignment="Center">
             Telefon
         </TextBlock>
-        <TextBlock Foreground="White" FontWeight="Bold" Grid.Row="5" Height="20" HorizontalAlignment="Center">
+        <TextBlock Foreground="#d0d6d6" FontWeight="Bold" Grid.Row="5" Height="20" HorizontalAlignment="Center">
             Email
         </TextBlock>
-        <TextBlock Foreground="White" FontWeight="Bold" Grid.Row="6" Height="20" HorizontalAlignment="Center">
+        <TextBlock Foreground="#d0d6d6" FontWeight="Bold" Grid.Row="6" Height="20" HorizontalAlignment="Center">
             Typ pracownika
             <Run Foreground="Red">*</Run>
         </TextBlock>
 
 
 
-        <TextBox Grid.Row="0" Grid.Column="1" Name="ImieTextBox" Width="230" Height="40" MaxLength="100"/>
-        <TextBox Grid.Row="1" Grid.Column="1" Name="NazwiskoTextBox" Width="230" Height="40" MaxLength="100"/>
-        <TextBox Grid.Row="2" Grid.Column="1" Name="PeselTextBox" Width="230" Height="40" MaxLength="11"/>
-        <DatePicker Name="DataUrodzeniaDP"  Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" Width="200" Height="25"></DatePicker>
-        <TextBox Grid.Row="4" Grid.Column="1" Name="TelefonTextBox" Width="230" Height="40" MaxLength="20"/>
-        <TextBox Grid.Row="5" Grid.Column="1" Name="EmailTextBox" Width="230" Height="40" MaxLength="100"/>
-        <ComboBox Grid.Row="6" Grid.Column="1" Name="TypPracownikaCB" Width="230" Height="30">
+        <TextBox Style="{StaticResource CustomTextBoxStyle}" Grid.Row="0" Grid.Column="1" Name="ImieTextBox" Width="230" Height="40" MaxLength="100"/>
+        <TextBox Style="{StaticResource CustomTextBoxStyle}" Grid.Row="1" Grid.Column="1" Name="NazwiskoTextBox" Width="230" Height="40" MaxLength="100"/>
+        <TextBox Style="{StaticResource CustomTextBoxStyle}" Grid.Row="2" Grid.Column="1" Name="PeselTextBox" Width="230" Height="40" MaxLength="11"/>
+        <DatePicker Style="{StaticResource CustomDatePickerStyle}" Name="DataUrodzeniaDP"  Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" Width="230" Height="40"></DatePicker>
+        <TextBox Style="{StaticResource CustomTextBoxStyle}" Grid.Row="4" Grid.Column="1" Name="TelefonTextBox" Width="230" Height="40" MaxLength="20"/>
+        <TextBox Style="{StaticResource CustomTextBoxStyle}" Grid.Row="5" Grid.Column="1" Name="EmailTextBox" Width="230" Height="40" MaxLength="100"/>
+        <ComboBox Style="{StaticResource CustomComboBoxStyle}" Grid.Row="6" Grid.Column="1" Name="TypPracownikaCB" Width="230" Height="30">
             <ComboBoxItem>Medyczny</ComboBoxItem>
             <ComboBoxItem>Administracji</ComboBoxItem>
         </ComboBox>
 
         <StackPanel Grid.Row="7" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Content="Dodaj pracownika"  Name="DodajPracownikaButton" Width="100" Height="40" Margin="0,0,10,0" Click="AddWorker_Click"/>
-            <Button Name="AnulujButton"  Width="100" Height="40">Anuluj</Button>
+            <Button Style="{StaticResource CustomSendButtonStyle}" Content="Dodaj"  Name="DodajPracownikaButton" Width="100" Height="40" Margin="0,0,10,0"/>
+            <Button Style="{StaticResource CustomSendButtonStyle}" Name="AnulujButton"  Width="100" Height="40">Anuluj</Button>
         </StackPanel>
     </Grid>
 
