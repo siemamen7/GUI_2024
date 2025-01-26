@@ -16,12 +16,12 @@
 
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="31*"/>
-            <ColumnDefinition Width="193*"/>
-            <ColumnDefinition Width="16*"/>
+            <ColumnDefinition Width="169*"/>
+            <ColumnDefinition Width="727*"/>
+            <ColumnDefinition Width="64*"/>
         </Grid.ColumnDefinitions>
 
-       
+
         <StackPanel Grid.Row="1" Grid.Column="0">
             <Button Style ="{StaticResource RoundedButtonStyle}" Content="Grafiki" Margin=" 10"/>
             <Button Style ="{StaticResource RoundedButtonStyle}" Content="Pomieszczenia" Margin=" 10"/>

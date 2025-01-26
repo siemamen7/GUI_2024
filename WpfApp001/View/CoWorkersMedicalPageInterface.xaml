@@ -18,19 +18,19 @@
 
         <!-- First Name Input -->
         <StackPanel Grid.Column="0" Margin="5">
-            <TextBlock Text="Imię" FontWeight="Bold" Margin="0,0,0,5" />
+            <TextBlock Style="{StaticResource GlobalTextBlockStyle}" Text="Imię" FontWeight="Bold" Margin="0,0,0,5" />
             <TextBox Name="FirstNameTextBox" Width="150" Height="30"/>
         </StackPanel>
 
         <!-- Last Name Input -->
         <StackPanel Grid.Column="1" Margin="5">
-            <TextBlock Text="Nazwisko" FontWeight="Bold" Margin="0,0,0,5" />
+            <TextBlock Style="{StaticResource GlobalTextBlockStyle}" Text="Nazwisko" FontWeight="Bold" Margin="0,0,0,5" />
             <TextBox Name="LastNameTextBox" Width="150" Height="30"/>
         </StackPanel>
 
         <!-- Position Selection -->
         <StackPanel Grid.Column="2" Margin="5">
-            <TextBlock Text="Funkcja" FontWeight="Bold" Margin="0,0,0,5" />
+            <TextBlock Style="{StaticResource GlobalTextBlockStyle}" Text="Funkcja" FontWeight="Bold" Margin="0,0,0,5" />
             <ComboBox Name="PositionComboBox" Width="150" Height="30">
                 <ComboBoxItem Content="Lekarz"/>
                 <ComboBoxItem Content="Pielęgniarka"/>

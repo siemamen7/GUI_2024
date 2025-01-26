@@ -2,22 +2,37 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <!-- Colors -->
-    <Color x:Key="DarkColor">#222831</Color>
-    <Color x:Key="SecondaryDarkColor">#393E46</Color>
-    <Color x:Key="AccentColor">#00ADB5</Color>
-    <Color x:Key="LightColor">#EEEEEE</Color>
+    <Color x:Key="DarkColor">#041421</Color>
+    <Color x:Key="SecondaryDarkColor">#042630</Color>
+    <Color x:Key="AccentColor">#4c7273</Color>
+    <Color x:Key="LightColor">#86b9b0</Color>
+    <Color x:Key="SecondaryLightColor">#d0d6d6</Color>
 
     <!-- SolidColorBrushes for usage in styles -->
     <SolidColorBrush x:Key="DarkBrush" Color="{StaticResource DarkColor}" />
     <SolidColorBrush x:Key="SecondaryDarkBrush" Color="{StaticResource SecondaryDarkColor}" />
     <SolidColorBrush x:Key="AccentBrush" Color="{StaticResource AccentColor}" />
     <SolidColorBrush x:Key="LightBrush" Color="{StaticResource LightColor}" />
+    <SolidColorBrush x:Key="SecondaryLightBrush" Color="{StaticResource SecondaryLightColor}" />
 
+    <Storyboard x:Key="FadeInAnimation">
+        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                         From="0" To="1" Duration="0:0:1" />
+    </Storyboard>
+    
     <!-- Startup background -->
     <LinearGradientBrush x:Key="AmbientBackground" StartPoint="0,0" EndPoint="1,1">
-        <GradientStop Color="{StaticResource LightColor}" Offset="0.5"/>
-        <GradientStop Color="{StaticResource AccentColor}" Offset="0"/>
+        <GradientStop Color="{StaticResource SecondaryDarkColor}" Offset="0.5"/>
+        <GradientStop Color="{StaticResource DarkColor}" Offset="0"/>
     </LinearGradientBrush>
+
+    <Style x:Key="GlobalTextBlockStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource SecondaryLightBrush}"/>
+    </Style>
+
+    <Style x:Key="ButtonTextBlockStyle" TargetType="Button">
+        <Setter Property="Foreground" Value="Black"/>
+    </Style>
 
     <Style x:Key="RoundedButtonStyle" TargetType="Button">
         <!-- Existing Setters -->
@@ -72,8 +87,111 @@
         </Setter>
     </Style>
 
-    
-    
-    
-    
+    <Style x:Key="CustomBorderStyle" TargetType="Border">
+        <Setter Property="Opacity" Value="0" />
+        <!-- Start invisible -->
+        <Style.Triggers>
+            <EventTrigger RoutedEvent="Loaded">
+                <BeginStoryboard Storyboard="{StaticResource FadeInAnimation}" />
+            </EventTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="CustomListBoxStyle" TargetType="ListBox">
+        <Setter Property="Background" Value="{StaticResource SecondaryDarkBrush}" />
+        <Setter Property="BorderBrush" Value="{StaticResource SecondaryLightBrush}" />
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="Foreground" Value="{StaticResource SecondaryLightBrush}" />
+        <Setter Property="Padding" Value="10" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBox">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="10">
+                        <ScrollViewer>
+                            <ItemsPresenter />
+                        </ScrollViewer>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <EventTrigger RoutedEvent="Loaded">
+                <BeginStoryboard Storyboard="{StaticResource FadeInAnimation}" />
+            </EventTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Custom TextBox Style -->
+    <Style x:Key="CustomTextBoxStyle" TargetType="TextBox">
+        <Setter Property="Background" Value="{StaticResource SecondaryDarkBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource SecondaryLightBrush}" />
+        <Setter Property="BorderBrush" Value="{StaticResource SecondaryLightBrush}" />
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="Padding" Value="10" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBox">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="10">
+                        <ScrollViewer x:Name="PART_ContentHost" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <EventTrigger RoutedEvent="Loaded">
+                <BeginStoryboard Storyboard="{StaticResource FadeInAnimation}" />
+            </EventTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Custom Button Style -->
+    <Style x:Key="CustomSendButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource LightBrush}" />
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="Padding" Value="10,5" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="BorderBrush" Value="{StaticResource SecondaryDarkBrush}" />
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="10">
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          Content="{TemplateBinding Content}"
+                                          Margin="{TemplateBinding Padding}" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <!-- Hover effect -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource AccentBrush}" />
+                        </Trigger>
+                        <!-- Click effect -->
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource SecondaryDarkBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <EventTrigger RoutedEvent="Loaded">
+                <BeginStoryboard Storyboard="{StaticResource FadeInAnimation}" />
+            </EventTrigger>
+        </Style.Triggers>
+    </Style>
 </ResourceDictionary>

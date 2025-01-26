@@ -12,27 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-//using WpfApp001.Classes;
 
 namespace WpfApp001.View
 {
     /// <summary>
-    /// Interaction logic for StartupPanel.xaml
+    /// Interaction logic for AdminPomieszczeniaPage.xaml
     /// </summary>
-    public partial class StartupPanel : Page
+    public partial class AdminPomieszczeniaPage : Page
     {
-        public StartupPanel()
+        public AdminPomieszczeniaPage()
         {
             InitializeComponent();
         }
-
-        private void MoveTODO(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new Uri("View/LoginPage.xaml", UriKind.Relative));
-            //Update.UpdatePacjenci();
-        }
-
-
     }
-
 }

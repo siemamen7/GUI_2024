@@ -12,17 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp001.ViewModel;
 
 namespace WpfApp001.View
 {
-    /// <summary>
-    /// Interaction logic for UserCard.xaml
-    /// </summary>
+
     public partial class UserCard : Page
     {
         public UserCard()
         {
             InitializeComponent();
+            DataContext = new UserCardViewModel(); // Set the ViewModel as the DataContext
         }
     }
 }

@@ -18,7 +18,7 @@
 
         <!-- Week Selection -->
         <StackPanel Grid.Column="0" Margin="5">
-            <TextBlock Text="Tydzień" FontWeight="Bold" Margin="0,0,0,5" />
+            <TextBlock Style="{StaticResource GlobalTextBlockStyle}" Text="Tydzień" FontWeight="Bold" Margin="0,0,0,5" />
             <ListBox x:Name="WeekListBox" SelectionMode="Multiple" MaxHeight="100">
                 <ListBoxItem Content="1 - 7.12.2024" />
                 <ListBoxItem Content="8 - 14.12.2024" />
@@ -29,7 +29,7 @@
 
         <!-- Day Selection -->
         <StackPanel Grid.Column="1" Margin="5">
-            <TextBlock Text="Dzień" FontWeight="Bold" Margin="0,0,0,5" />
+            <TextBlock Style="{StaticResource GlobalTextBlockStyle}" Text="Dzień" FontWeight="Bold" Margin="0,0,0,5" />
             <ListBox x:Name="DayListBox" SelectionMode="Multiple" MaxHeight="100">
                 <ListBoxItem Content="Poniedziałek" />
                 <ListBoxItem Content="Wtorek" />
@@ -43,7 +43,7 @@
 
         <!-- Hour Selection -->
         <StackPanel Grid.Column="2" Margin="5">
-            <TextBlock Text="Godziny" FontWeight="Bold" Margin="0,0,0,5" />
+            <TextBlock Style="{StaticResource GlobalTextBlockStyle}" Text="Godziny" FontWeight="Bold" Margin="0,0,0,5" />
             <ListBox x:Name="HourListBox" SelectionMode="Multiple" MaxHeight="100">
                 <ListBoxItem Content="7:30" />
                 <ListBoxItem Content="8:00" />

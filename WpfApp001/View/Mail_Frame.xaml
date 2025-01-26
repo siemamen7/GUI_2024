@@ -18,17 +18,17 @@
         </Grid.ColumnDefinitions>
 
         <!-- Pasek boczny - Lista osób -->
-        <Border BorderBrush="Black" BorderThickness="2" Margin="5" CornerRadius="10">
+        <Border Style="{StaticResource CustomBorderStyle}" BorderBrush="{StaticResource SecondaryLightBrush}" BorderThickness="2" Margin="5" CornerRadius="10">
             <StackPanel Grid.Column="0" Margin="5">
-                <TextBlock Text="Kontakty" Margin="10" FontSize="16" FontWeight="Bold" />
-                <Button Content="Osoba 1" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Margin="5" FontWeight="Bold" />
-                <Button Content="Osoba 2" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Margin="5" FontWeight="Bold" />
-                <Button Content="Osoba 3" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Margin="5" FontWeight="Bold" />
+                <TextBlock Style="{StaticResource GlobalTextBlockStyle}" Text="Kontakty" Margin="10" FontSize="16" FontWeight="Bold" />
+                <Button Content="Osoba 1" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Margin="5" FontWeight="Bold" Foreground="#FFD0D6D6" />
+                <Button Content="Osoba 2" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Margin="5" FontWeight="Bold" Foreground="#FFD0D6D6" />
+                <Button Content="Osoba 3" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Margin="5" FontWeight="Bold" Foreground="#FFD0D6D6" />
             </StackPanel>
         </Border>
 
         <!-- Lista wiadomości -->
-        <ListBox Grid.Column="1" Margin="10,10,10,72"  >
+        <ListBox Grid.Column="1" Margin="10,10,10,72" Style="{StaticResource CustomListBoxStyle}" >
             
             <ListBoxItem>
                 <StackPanel>
@@ -47,8 +47,8 @@
 
       
         <StackPanel Grid.Column="1" VerticalAlignment="Bottom" Orientation="Horizontal"  Margin="5">
-            <TextBox Width="600" Height="40" Margin="5"   BorderThickness="1" />
-            <Button Content="Wyślij" Width="80" Margin="5" VerticalAlignment="Center" />
+            <TextBox Width="600" Height="40" Margin="5" Style="{StaticResource CustomTextBoxStyle}"/>
+            <Button Content="Wyślij" Width="80" Margin="5" VerticalAlignment="Center" Style="{StaticResource CustomSendButtonStyle}" />
         </StackPanel>
     </Grid>
 </Page>

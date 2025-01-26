@@ -10,48 +10,64 @@
 
     <Grid>
         <Grid Background="{StaticResource AmbientBackground}">
+            <!-- Column and Row Definitions -->
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="10*" />
-                <ColumnDefinition Width="35*" />
-                <ColumnDefinition Width="10*" />
-                <ColumnDefinition Width="35*" />
-                <ColumnDefinition Width="10*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="150" />
+                <!-- Spacer between buttons -->
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="66*"/>
-                <RowDefinition Height="342*"/>
-                <RowDefinition Height="251*"/>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <!-- Return Button -->
-            <Button Grid.Row="0" Grid.Column="4" Style="{StaticResource RoundedButtonStyle}" Margin="10,10,10,10">
-                <Button.Content>
-                    <Image Source="pack://application:,,,/WpfApp001;component/Styles/Icons/logout.png" />
-                </Button.Content>
+            <!-- Bigger User Panel Button -->
+            <Button Style="{StaticResource RoundedButtonStyle}" Grid.Column="1" Grid.Row="1" Margin="10" Click="MoveTODO" Command="{Binding UserPanelCommand}"
+                    Width="350" Height="350">
+                <!-- Increased size -->
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <!-- Bigger Image Centered -->
+                    <Image Source="pack://application:,,,/WpfApp001;component/Styles/Icons/stethoscope.png" 
+                           Width="200" Height="200" 
+                           HorizontalAlignment="Center" VerticalAlignment="Center" 
+                           Grid.Row="0" />
+
+                    <!-- Text at Middle Bottom -->
+                    <TextBlock Text="Panel użytkownika" FontSize="26" HorizontalAlignment="Center" 
+                               VerticalAlignment="Bottom" Margin="0,10,0,10" Grid.Row="1"/>
+                </Grid>
             </Button>
 
-            <!-- Content for the first column -->
-            <Button  Style ="{StaticResource RoundedButtonStyle}"  Grid.Column="1" Grid.Row="1" Content="Panel użytkownika"  Margin="10,10,10,10" Click="MoveTODO" Command="{Binding UserPanelCommand}"/>
+            <!-- Bigger Admin Panel Button -->
+            <Button Style="{StaticResource RoundedButtonStyle}" Grid.Column="3" Grid.Row="1" Margin="10" Click="MoveTODO" Command="{Binding AdminPanelCommand}"
+                    Width="350" Height="350">
+                <!-- Increased size -->
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
 
-            <!-- Content for the second column -->
-            <Button Style ="{StaticResource RoundedButtonStyle}" Grid.Column="3" Grid.Row="1" Content="Panel administratora" Margin="10,10,10,10" Click="MoveTODO" Command="{Binding AdminPanelCommand}"/>
+                    <!-- Bigger Image Centered -->
+                    <Image Source="pack://application:,,,/WpfApp001;component/Styles/Icons/workplace.png" 
+                           Width="200" Height="200" 
+                           HorizontalAlignment="Center" VerticalAlignment="Center" 
+                           Grid.Row="0" />
 
-            <!-- Image in Column 1, Row 2 -->
-            <Image Grid.Column="1" Grid.Row="2" 
-           Source="pack://application:,,,/WpfApp001;component/Styles/Icons/stethoscope.png" 
-           HorizontalAlignment="Center" 
-           VerticalAlignment="Center" 
-           Margin="10"/>
-
-
-            <Image Grid.Column="3" Grid.Row="2" 
-           Source="pack://application:,,,/WpfApp001;component/Styles/Icons/workplace.png" 
-           HorizontalAlignment="Center" 
-           VerticalAlignment="Center" 
-           Margin="10"/>
-
-
+                    <!-- Text at Middle Bottom -->
+                    <TextBlock Text="Panel administratora" FontSize="26" HorizontalAlignment="Center" 
+                               VerticalAlignment="Bottom" Margin="0,10,0,10" Grid.Row="1"/>
+                </Grid>
+            </Button>
         </Grid>
-        
     </Grid>
 </Page>
