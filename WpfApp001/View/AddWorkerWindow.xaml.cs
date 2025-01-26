@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,7 @@ namespace WpfApp001.View
         public AddWorkerWindow()
         {
             InitializeComponent();
+            DataContext = Storage.Instance;
         }
 
         private void AddWorker_Click(object sender, RoutedEventArgs e)
@@ -44,18 +46,27 @@ namespace WpfApp001.View
             // tworzenie nowego pracownika
             var newWorker = new Pracownicy 
             {
+                Id = 0,
                 Imie = ImieTextBox.Text,
                 Nazwisko = NazwiskoTextBox.Text,
                 Pesel = PeselTextBox.Text,
                 DataUrodzenia = DateOnly.FromDateTime(DataUrodzeniaDP.SelectedDate.Value),
                 Telefon = TelefonTextBox.Text,
                 Email = EmailTextBox.Text,
-                Medyczny = (byte)(typPracownika == "Medyczny" ? 1 : 0),
+                IdFunkcji = (int)TypPracownikaCB.SelectedValue,
+                Medyczny = (byte)(typPracownika == "Admin" ? 0 : 1),
                 Dis = 0 // aktywny
             };
 
             Storage.Instance.UpdateElement(newWorker);
+            this.Close();
 
+        }
+
+        private void AnulujButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            this.Close();
         }
     }
 }

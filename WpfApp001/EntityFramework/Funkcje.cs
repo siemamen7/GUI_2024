@@ -11,5 +11,7 @@ public partial class Funkcje
 
     public sbyte Dis { get; set; }
 
+    public virtual ICollection<Pracownicy> Pracownicies { get; set; } = new List<Pracownicy>();
+
     public virtual ICollection<TypyWyd> TypyWyds { get; set; } = new List<TypyWyd>();
 }

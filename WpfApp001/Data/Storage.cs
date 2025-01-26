@@ -18,15 +18,8 @@ namespace WpfApp001.Data
         private static Storage? _instance;
         public static Storage Instance => _instance ??= new Storage();
 
-        public virtual ObservableCollection<Funkcje> Funkcjes { get; set; }
-
-        public virtual ObservableCollection<Mailcontact> Mailcontacts { get; set; }
-
-        public virtual ObservableCollection<Mailcontact1> Mailcontacts1 { get; set; }
-
-        public virtual ObservableCollection<Mailmessage> Mailmessages { get; set; }
-
-        public virtual ObservableCollection<Mailmessage1> Mailmessages1 { get; set; }
+        public ObservableCollection<Mailmessage>? Mailmessages { get; set; }
+        public ObservableCollection<Funkcje>? Funkcjes { get; set; }
 
         public ObservableCollection<Pacjenci>? Pacjencis { get; set; }
 
@@ -52,6 +45,9 @@ namespace WpfApp001.Data
         {
             using (var context = new szpitalContext())
             {
+
+                Mailmessages = new ObservableCollection<Mailmessage>(context.Mailmessages.ToList());
+                Funkcjes = new ObservableCollection<Funkcje>(context.Funkcjes.ToList());
                 Pacjencis = new ObservableCollection<Pacjenci>(context.Pacjencis.ToList());
                 Pomieszczenia = new ObservableCollection<Pomieszczenium>(context.Pomieszczenia.ToList());
                 Pracownicies = new ObservableCollection<Pracownicy>(context.Pracownicies.ToList());
@@ -126,7 +122,7 @@ namespace WpfApp001.Data
                 if (collectionProperty != null)
                 {
 
-                    var updatedList = dbSet.Where(e => typeof(T).GetProperty("dis").GetValue(e).Equals(0) == true).ToList();
+                    var updatedList = dbSet.AsEnumerable().Where(e => typeof(T).GetProperty("Dis").GetValue(e).Equals(0)).ToList();
 
                     var observableCollection = new ObservableCollection<T>(updatedList);
                     collectionProperty.SetValue(this, observableCollection);
