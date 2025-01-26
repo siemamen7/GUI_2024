@@ -63,7 +63,7 @@
         </ComboBox>
 
         <StackPanel Grid.Row="7" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Content="Dodaj pracownika"  Name="DodajPracownikaButton" Width="100" Height="40" Margin="0,0,10,0"/>
+            <Button Content="Dodaj pracownika"  Name="DodajPracownikaButton" Width="100" Height="40" Margin="0,0,10,0" Click="AddWorker_Click"/>
             <Button Name="AnulujButton"  Width="100" Height="40">Anuluj</Button>
         </StackPanel>
     </Grid>
