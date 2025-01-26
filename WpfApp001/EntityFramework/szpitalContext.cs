@@ -16,15 +16,21 @@ public partial class szpitalContext : DbContext
     {
     }
 
+    public virtual DbSet<Funkcje> Funkcjes { get; set; }
+
+    public virtual DbSet<Mailcontact> Mailcontacts { get; set; }
+
+    public virtual DbSet<Mailcontact1> Mailcontacts1 { get; set; }
+
+    public virtual DbSet<Mailmessage> Mailmessages { get; set; }
+
+    public virtual DbSet<Mailmessage1> Mailmessages1 { get; set; }
+
     public virtual DbSet<Pacjenci> Pacjencis { get; set; }
 
     public virtual DbSet<Pomieszczenium> Pomieszczenia { get; set; }
 
     public virtual DbSet<Pracownicy> Pracownicies { get; set; }
-
-    public virtual DbSet<SpecPrac> SpecPracs { get; set; }
-
-    public virtual DbSet<Specjalizacje> Specjalizacjes { get; set; }
 
     public virtual DbSet<TypyPom> TypyPoms { get; set; }
 
@@ -41,6 +47,7 @@ public partial class szpitalContext : DbContext
     public virtual DbSet<Wydarzenium> Wydarzenia { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseMySql("server=projekt-interfejsy.mysql.database.azure.com;database=szpital;userid=szczuras;password=Interfejsy123;sslmode=Required", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.39-mysql"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -48,6 +55,73 @@ public partial class szpitalContext : DbContext
         modelBuilder
             .UseCollation("utf8mb3_general_ci")
             .HasCharSet("utf8mb3");
+
+        modelBuilder.Entity<Funkcje>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
+
+            entity.ToTable("funkcje");
+
+            entity.HasIndex(e => e.Nazwa, "nazwa_UNIQUE").IsUnique();
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Dis).HasColumnName("dis");
+            entity.Property(e => e.Nazwa)
+                .HasMaxLength(100)
+                .HasColumnName("nazwa");
+        });
+
+        modelBuilder.Entity<Mailcontact>(entity =>
+        {
+            entity.HasKey(e => e.MailContactId).HasName("PRIMARY");
+
+            entity.ToTable("mailcontact");
+
+            entity.Property(e => e.Name).HasMaxLength(255);
+        });
+
+        modelBuilder.Entity<Mailcontact1>(entity =>
+        {
+            entity.HasKey(e => e.MailContactId).HasName("PRIMARY");
+
+            entity.ToTable("mailcontacts");
+
+            entity.Property(e => e.Name).HasMaxLength(255);
+        });
+
+        modelBuilder.Entity<Mailmessage>(entity =>
+        {
+            entity.HasKey(e => e.MailMessageId).HasName("PRIMARY");
+
+            entity.ToTable("mailmessage");
+
+            entity.HasIndex(e => e.MailContactId, "MailContactId");
+
+            entity.Property(e => e.Content).HasMaxLength(255);
+            entity.Property(e => e.Sender).HasMaxLength(255);
+
+            entity.HasOne(d => d.MailContact).WithMany(p => p.Mailmessages)
+                .HasForeignKey(d => d.MailContactId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("mailmessage_ibfk_1");
+        });
+
+        modelBuilder.Entity<Mailmessage1>(entity =>
+        {
+            entity.HasKey(e => e.MailMessageId).HasName("PRIMARY");
+
+            entity.ToTable("mailmessages");
+
+            entity.HasIndex(e => e.MailContactId, "MailContactId");
+
+            entity.Property(e => e.Content).HasMaxLength(255);
+            entity.Property(e => e.Sender).HasMaxLength(255);
+
+            entity.HasOne(d => d.MailContact).WithMany(p => p.Mailmessage1s)
+                .HasForeignKey(d => d.MailContactId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("mailmessages_ibfk_1");
+        });
 
         modelBuilder.Entity<Pacjenci>(entity =>
         {
@@ -119,6 +193,7 @@ public partial class szpitalContext : DbContext
             entity.Property(e => e.Email)
                 .HasMaxLength(100)
                 .HasColumnName("email");
+            entity.Property(e => e.IdFunkcji).HasColumnName("id_funkcji");
             entity.Property(e => e.Imie)
                 .HasMaxLength(100)
                 .HasColumnName("imie");
@@ -132,50 +207,6 @@ public partial class szpitalContext : DbContext
             entity.Property(e => e.Telefon)
                 .HasMaxLength(20)
                 .HasColumnName("telefon");
-            entity.Property(e => e.Tytul)
-                .HasMaxLength(50)
-                .HasColumnName("tytul");
-        });
-
-        modelBuilder.Entity<SpecPrac>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PRIMARY");
-
-            entity.ToTable("spec_prac");
-
-            entity.HasIndex(e => e.IdPracownicy, "FK_spec_prac_pracownicy_idx");
-
-            entity.HasIndex(e => e.IdSpecjalizacje, "FK_spec_prac_specjalizacje_idx");
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Dis).HasColumnName("dis");
-            entity.Property(e => e.IdPracownicy).HasColumnName("id_pracownicy");
-            entity.Property(e => e.IdSpecjalizacje).HasColumnName("id_specjalizacje");
-
-            entity.HasOne(d => d.IdPracownicyNavigation).WithMany(p => p.SpecPracs)
-                .HasForeignKey(d => d.IdPracownicy)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_spec_prac_pracownicy");
-
-            entity.HasOne(d => d.IdSpecjalizacjeNavigation).WithMany(p => p.SpecPracs)
-                .HasForeignKey(d => d.IdSpecjalizacje)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_spec_prac_specjalizacje");
-        });
-
-        modelBuilder.Entity<Specjalizacje>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PRIMARY");
-
-            entity.ToTable("specjalizacje");
-
-            entity.HasIndex(e => e.Nazwa, "nazwa_UNIQUE").IsUnique();
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Dis).HasColumnName("dis");
-            entity.Property(e => e.Nazwa)
-                .HasMaxLength(100)
-                .HasColumnName("nazwa");
         });
 
         modelBuilder.Entity<TypyPom>(entity =>
@@ -201,14 +232,14 @@ public partial class szpitalContext : DbContext
 
             entity.HasIndex(e => e.IdWymaganegoPom, "FK_typy_wyd_pomieszczenia_idx");
 
-            entity.HasIndex(e => e.IdWymaganejSpec, "FK_typy_wyd_specjalizacje_idx");
+            entity.HasIndex(e => e.IdWymaganejFunk, "FK_typy_wyd_specjalizacje_idx");
 
             entity.HasIndex(e => e.Nazwa, "nazwa_UNIQUE").IsUnique();
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Dis).HasColumnName("dis");
             entity.Property(e => e.IdWymaganegoPom).HasColumnName("id_wymaganego_pom");
-            entity.Property(e => e.IdWymaganejSpec).HasColumnName("id_wymaganej_spec");
+            entity.Property(e => e.IdWymaganejFunk).HasColumnName("id_wymaganej_funk");
             entity.Property(e => e.Nazwa)
                 .HasMaxLength(100)
                 .HasColumnName("nazwa");
@@ -217,8 +248,8 @@ public partial class szpitalContext : DbContext
                 .HasForeignKey(d => d.IdWymaganegoPom)
                 .HasConstraintName("FK_typy_wyd_pomieszczenia");
 
-            entity.HasOne(d => d.IdWymaganejSpecNavigation).WithMany(p => p.TypyWyds)
-                .HasForeignKey(d => d.IdWymaganejSpec)
+            entity.HasOne(d => d.IdWymaganejFunkNavigation).WithMany(p => p.TypyWyds)
+                .HasForeignKey(d => d.IdWymaganejFunk)
                 .HasConstraintName("FK_typy_wyd_specjalizacje");
         });
 

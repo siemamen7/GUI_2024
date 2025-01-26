@@ -7,8 +7,6 @@ public partial class Pracownicy
 {
     public int Id { get; set; }
 
-    public string? Tytul { get; set; }
-
     public string Imie { get; set; } = null!;
 
     public string Nazwisko { get; set; } = null!;
@@ -19,13 +17,13 @@ public partial class Pracownicy
 
     public byte Medyczny { get; set; }
 
+    public int? IdFunkcji { get; set; }
+
     public string? Telefon { get; set; }
 
     public string? Email { get; set; }
 
     public byte Dis { get; set; }
-
-    public virtual ICollection<SpecPrac> SpecPracs { get; set; } = new List<SpecPrac>();
 
     public virtual ICollection<Urlopy> Urlopies { get; set; } = new List<Urlopy>();
 
