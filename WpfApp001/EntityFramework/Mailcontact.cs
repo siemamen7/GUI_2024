@@ -1,13 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace WpfApp001.EntityFramework;
 
-public partial class Mailcontact
+namespace WpfApp001.EntityFramework
 {
-    public int MailContactId { get; set; }
+    public class MailContact
+    {
+        [Key]
+        public int MailContactId { get; set; }
 
-    public string Name { get; set; } = null!;
+        [Required]
+        public string Name { get; set; }
 
-    public virtual ICollection<Mailmessage> Mailmessages { get; set; } = new List<Mailmessage>();
+        public ICollection<MailMessage> Messages { get; set; } = new List<MailMessage>();
+    }
 }
