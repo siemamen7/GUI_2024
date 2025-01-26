@@ -149,7 +149,8 @@ namespace WpfApp001.Data
                         {
                             // Update the existing element in the ObservableCollection
                             var index = collection.IndexOf(existingElement);
-                            collection[index] = element;
+                            collection.RemoveAt(index);
+                            collection.Insert(index, element);
                         }
                         else
                         {
