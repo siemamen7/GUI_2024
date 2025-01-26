@@ -17,11 +17,11 @@ public partial class Pracownicy
 
     public DateOnly DataUrodzenia { get; set; }
 
-    public DateOnly DataZatrudnienia { get; set; }
-
-    public DateOnly? DataKoncaUmowy { get; set; }
-
     public byte Medyczny { get; set; }
+
+    public string? Telefon { get; set; }
+
+    public string? Email { get; set; }
 
     public byte Dis { get; set; }
 

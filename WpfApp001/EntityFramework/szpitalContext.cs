@@ -47,7 +47,7 @@ public partial class szpitalContext : DbContext
     public virtual DbSet<Zabiegi> Zabiegis { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseMySql("server=projekt-interfejsy.mysql.database.azure.com;database=szpital;user=szczuras;password=Interfejsy123;sslmode=Required", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.39-mysql"));
+        => optionsBuilder.UseMySql("server=projekt-interfejsy.mysql.database.azure.com;database=szpital;userid=szczuras;password=Interfejsy123;sslmode=Required", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.39-mysql"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -154,10 +154,11 @@ public partial class szpitalContext : DbContext
             entity.HasIndex(e => e.Pesel, "pesel_UNIQUE").IsUnique();
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.DataKoncaUmowy).HasColumnName("data_konca_umowy");
             entity.Property(e => e.DataUrodzenia).HasColumnName("data_urodzenia");
-            entity.Property(e => e.DataZatrudnienia).HasColumnName("data_zatrudnienia");
             entity.Property(e => e.Dis).HasColumnName("dis");
+            entity.Property(e => e.Email)
+                .HasMaxLength(100)
+                .HasColumnName("email");
             entity.Property(e => e.Imie)
                 .HasMaxLength(100)
                 .HasColumnName("imie");
@@ -168,6 +169,9 @@ public partial class szpitalContext : DbContext
             entity.Property(e => e.Pesel)
                 .HasMaxLength(11)
                 .HasColumnName("pesel");
+            entity.Property(e => e.Telefon)
+                .HasMaxLength(20)
+                .HasColumnName("telefon");
             entity.Property(e => e.Tytul)
                 .HasMaxLength(50)
                 .HasColumnName("tytul");
