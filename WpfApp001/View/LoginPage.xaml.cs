@@ -24,6 +24,8 @@ namespace WpfApp001.View
         public LoginPage()
         {
             InitializeComponent();
+            var addPatientWindow = new AddPatientWindow();
+            addPatientWindow.Show();
         }
 
 

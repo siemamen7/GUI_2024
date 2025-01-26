@@ -17,40 +17,45 @@ using WpfApp001.EntityFramework;
 namespace WpfApp001.View
 {
     /// <summary>
-    /// Logika interakcji dla klasy AddPatientWindow.xaml
+    /// Logika interakcji dla klasy AddWorkerWindow.xaml
     /// </summary>
-    public partial class AddPatientWindow : Window
+    public partial class AddWorkerWindow : Window
     {
-        public AddPatientWindow()
+        public AddWorkerWindow()
         {
             InitializeComponent();
         }
 
-        private void AddPatient_Click(object sender, RoutedEventArgs e)
+        private void AddWorker_Click(object sender, RoutedEventArgs e)
         {
             // Sprawdzanie wejścia
             if (string.IsNullOrWhiteSpace(ImieTextBox.Text) ||
                 string.IsNullOrWhiteSpace(NazwiskoTextBox.Text) ||
                 string.IsNullOrWhiteSpace(PeselTextBox.Text) ||
-                DataUrodzeniaDP.SelectedDate == null)
+                DataUrodzeniaDP.SelectedDate == null ||
+                TypPracownikaCB.SelectedIndex <= -1)
             {
-                MessageBox.Show("Proszę wypełnić wszystkie pola.");
+                MessageBox.Show("Proszę wypełnić wszystkie wymagane pola.");
                 return;
             }
 
-            // tworzenie nowego pacjenta
-            var newPatient = new Pacjenci
+            string typPracownika = TypPracownikaCB.Text;
+
+            // tworzenie nowego pracownika
+            var newWorker = new Pracownicy 
             {
                 Imie = ImieTextBox.Text,
                 Nazwisko = NazwiskoTextBox.Text,
                 Pesel = PeselTextBox.Text,
                 DataUrodzenia = DateOnly.FromDateTime(DataUrodzeniaDP.SelectedDate.Value),
-                DataRejestracji = DateOnly.FromDateTime(DateTime.Now),
+                Telefon = TelefonTextBox.Text,
+                Email = EmailTextBox.Text,
+                Medyczny = (byte)(typPracownika == "Medyczny" ? 1 : 0),
                 Dis = 0 // aktywny
             };
 
-            Storage.Instance.UpdateElement(newPatient);
-            
+            Storage.Instance.UpdateElement(newWorker);
+
         }
     }
 }
