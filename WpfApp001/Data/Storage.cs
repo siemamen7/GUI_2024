@@ -18,15 +18,21 @@ namespace WpfApp001.Data
         private static Storage? _instance;
         public static Storage Instance => _instance ??= new Storage();
 
+        public virtual ObservableCollection<Funkcje> Funkcjes { get; set; }
+
+        public virtual ObservableCollection<Mailcontact> Mailcontacts { get; set; }
+
+        public virtual ObservableCollection<Mailcontact1> Mailcontacts1 { get; set; }
+
+        public virtual ObservableCollection<Mailmessage> Mailmessages { get; set; }
+
+        public virtual ObservableCollection<Mailmessage1> Mailmessages1 { get; set; }
+
         public ObservableCollection<Pacjenci>? Pacjencis { get; set; }
 
         public ObservableCollection<Pomieszczenium>? Pomieszczenia { get; set; }
 
         public ObservableCollection<Pracownicy>? Pracownicies { get; set; }
-
-        public ObservableCollection<SpecPrac>? SpecPracs { get; set; }
-
-        public ObservableCollection<Specjalizacje>? Specjalizacjes { get; set; }
 
         public ObservableCollection<TypyPom>? TypyPoms { get; set; }
 
@@ -49,8 +55,6 @@ namespace WpfApp001.Data
                 Pacjencis = new ObservableCollection<Pacjenci>(context.Pacjencis.ToList());
                 Pomieszczenia = new ObservableCollection<Pomieszczenium>(context.Pomieszczenia.ToList());
                 Pracownicies = new ObservableCollection<Pracownicy>(context.Pracownicies.ToList());
-                SpecPracs = new ObservableCollection<SpecPrac>(context.SpecPracs.ToList());
-                Specjalizacjes = new ObservableCollection<Specjalizacje>(context.Specjalizacjes.ToList());
                 TypyPoms = new ObservableCollection<TypyPom>(context.TypyPoms.ToList());
                 TypyWyds = new ObservableCollection<TypyWyd>(context.TypyWyds.ToList());
                 Urlopies = new ObservableCollection<Urlopy>(context.Urlopies.ToList());
