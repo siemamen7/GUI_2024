@@ -26,10 +26,16 @@ namespace WpfApp001.View
             InitializeComponent();
         }
 
-        private void MoveTODO(object sender, RoutedEventArgs e)
+        private void MoveToUser(object sender, RoutedEventArgs e)
         {
+            Application.Current.Properties["UserType"] = 1;
             NavigationService.Navigate(new Uri("View/LoginPage.xaml", UriKind.Relative));
-            //Update.UpdatePacjenci();
+            
+        }
+        private void MoveToAdmin(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Properties["UserType"] = 0;
+            NavigationService.Navigate(new Uri("View/LoginPage.xaml", UriKind.Relative));
         }
 
 

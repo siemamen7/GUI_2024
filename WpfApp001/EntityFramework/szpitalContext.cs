@@ -16,19 +16,21 @@ public partial class szpitalContext : DbContext
     {
     }
 
-    public virtual DbSet<Leczenium> Leczenia { get; set; }
+    public virtual DbSet<Funkcje> Funkcjes { get; set; }
 
-    public virtual DbSet<Leki> Lekis { get; set; }
+    public virtual DbSet<Mailcontact> Mailcontacts { get; set; }
+
+    public virtual DbSet<Mailcontact1> Mailcontacts1 { get; set; }
+
+    public virtual DbSet<Mailmessage> Mailmessages { get; set; }
+
+    public virtual DbSet<Mailmessage1> Mailmessages1 { get; set; }
 
     public virtual DbSet<Pacjenci> Pacjencis { get; set; }
 
     public virtual DbSet<Pomieszczenium> Pomieszczenia { get; set; }
 
     public virtual DbSet<Pracownicy> Pracownicies { get; set; }
-
-    public virtual DbSet<SpecPrac> SpecPracs { get; set; }
-
-    public virtual DbSet<Specjalizacje> Specjalizacjes { get; set; }
 
     public virtual DbSet<TypyPom> TypyPoms { get; set; }
 
@@ -44,10 +46,9 @@ public partial class szpitalContext : DbContext
 
     public virtual DbSet<Wydarzenium> Wydarzenia { get; set; }
 
-    public virtual DbSet<Zabiegi> Zabiegis { get; set; }
-
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseMySql("server=projekt-interfejsy.mysql.database.azure.com;database=szpital;user=szczuras;password=Interfejsy123;sslmode=Required", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.39-mysql"));
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseMySql("server=projekt-interfejsy.mysql.database.azure.com;database=szpital;userid=szczuras;password=Interfejsy123;sslmode=Required", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.39-mysql"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -55,41 +56,71 @@ public partial class szpitalContext : DbContext
             .UseCollation("utf8mb3_general_ci")
             .HasCharSet("utf8mb3");
 
-        modelBuilder.Entity<Leczenium>(entity =>
+        modelBuilder.Entity<Funkcje>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.ToTable("leczenia");
+            entity.ToTable("funkcje");
 
-            entity.HasIndex(e => e.IdPacjenci, "FK_leczenia_pacjenci_idx");
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.DataRozpoczecia).HasColumnName("data_rozpoczecia");
-            entity.Property(e => e.DataZakonczenia).HasColumnName("data_zakonczenia");
-            entity.Property(e => e.Dis).HasColumnName("dis");
-            entity.Property(e => e.IdPacjenci).HasColumnName("id_pacjenci");
-            entity.Property(e => e.Opis)
-                .HasMaxLength(500)
-                .HasColumnName("opis");
-
-            entity.HasOne(d => d.IdPacjenciNavigation).WithMany(p => p.Leczenia)
-                .HasForeignKey(d => d.IdPacjenci)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_leczenia_pacjenci");
-        });
-
-        modelBuilder.Entity<Leki>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PRIMARY");
-
-            entity.ToTable("leki");
+            entity.HasIndex(e => e.Nazwa, "nazwa_UNIQUE").IsUnique();
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Dis).HasColumnName("dis");
-            entity.Property(e => e.IdLeczenia).HasColumnName("id_leczenia");
             entity.Property(e => e.Nazwa)
                 .HasMaxLength(100)
                 .HasColumnName("nazwa");
+        });
+
+        modelBuilder.Entity<Mailcontact>(entity =>
+        {
+            entity.HasKey(e => e.MailContactId).HasName("PRIMARY");
+
+            entity.ToTable("mailcontact");
+
+            entity.Property(e => e.Name).HasMaxLength(255);
+        });
+
+        modelBuilder.Entity<Mailcontact1>(entity =>
+        {
+            entity.HasKey(e => e.MailContactId).HasName("PRIMARY");
+
+            entity.ToTable("mailcontacts");
+
+            entity.Property(e => e.Name).HasMaxLength(255);
+        });
+
+        modelBuilder.Entity<Mailmessage>(entity =>
+        {
+            entity.HasKey(e => e.MailMessageId).HasName("PRIMARY");
+
+            entity.ToTable("mailmessage");
+
+            entity.HasIndex(e => e.MailContactId, "MailContactId");
+
+            entity.Property(e => e.Content).HasMaxLength(255);
+            entity.Property(e => e.Sender).HasMaxLength(255);
+
+            entity.HasOne(d => d.MailContact).WithMany(p => p.Mailmessages)
+                .HasForeignKey(d => d.MailContactId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("mailmessage_ibfk_1");
+        });
+
+        modelBuilder.Entity<Mailmessage1>(entity =>
+        {
+            entity.HasKey(e => e.MailMessageId).HasName("PRIMARY");
+
+            entity.ToTable("mailmessages");
+
+            entity.HasIndex(e => e.MailContactId, "MailContactId");
+
+            entity.Property(e => e.Content).HasMaxLength(255);
+            entity.Property(e => e.Sender).HasMaxLength(255);
+
+            entity.HasOne(d => d.MailContact).WithMany(p => p.Mailmessage1s)
+                .HasForeignKey(d => d.MailContactId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("mailmessages_ibfk_1");
         });
 
         modelBuilder.Entity<Pacjenci>(entity =>
@@ -108,6 +139,9 @@ public partial class szpitalContext : DbContext
             entity.Property(e => e.Imie)
                 .HasMaxLength(100)
                 .HasColumnName("imie");
+            entity.Property(e => e.Informacje)
+                .HasMaxLength(500)
+                .HasColumnName("informacje");
             entity.Property(e => e.Nazwisko)
                 .HasMaxLength(100)
                 .HasColumnName("nazwisko");
@@ -154,10 +188,12 @@ public partial class szpitalContext : DbContext
             entity.HasIndex(e => e.Pesel, "pesel_UNIQUE").IsUnique();
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.DataKoncaUmowy).HasColumnName("data_konca_umowy");
             entity.Property(e => e.DataUrodzenia).HasColumnName("data_urodzenia");
-            entity.Property(e => e.DataZatrudnienia).HasColumnName("data_zatrudnienia");
             entity.Property(e => e.Dis).HasColumnName("dis");
+            entity.Property(e => e.Email)
+                .HasMaxLength(100)
+                .HasColumnName("email");
+            entity.Property(e => e.IdFunkcji).HasColumnName("id_funkcji");
             entity.Property(e => e.Imie)
                 .HasMaxLength(100)
                 .HasColumnName("imie");
@@ -168,50 +204,9 @@ public partial class szpitalContext : DbContext
             entity.Property(e => e.Pesel)
                 .HasMaxLength(11)
                 .HasColumnName("pesel");
-            entity.Property(e => e.Tytul)
-                .HasMaxLength(50)
-                .HasColumnName("tytul");
-        });
-
-        modelBuilder.Entity<SpecPrac>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PRIMARY");
-
-            entity.ToTable("spec_prac");
-
-            entity.HasIndex(e => e.IdPracownicy, "FK_spec_prac_pracownicy_idx");
-
-            entity.HasIndex(e => e.IdSpecjalizacje, "FK_spec_prac_specjalizacje_idx");
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Dis).HasColumnName("dis");
-            entity.Property(e => e.IdPracownicy).HasColumnName("id_pracownicy");
-            entity.Property(e => e.IdSpecjalizacje).HasColumnName("id_specjalizacje");
-
-            entity.HasOne(d => d.IdPracownicyNavigation).WithMany(p => p.SpecPracs)
-                .HasForeignKey(d => d.IdPracownicy)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_spec_prac_pracownicy");
-
-            entity.HasOne(d => d.IdSpecjalizacjeNavigation).WithMany(p => p.SpecPracs)
-                .HasForeignKey(d => d.IdSpecjalizacje)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_spec_prac_specjalizacje");
-        });
-
-        modelBuilder.Entity<Specjalizacje>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PRIMARY");
-
-            entity.ToTable("specjalizacje");
-
-            entity.HasIndex(e => e.Nazwa, "nazwa_UNIQUE").IsUnique();
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Dis).HasColumnName("dis");
-            entity.Property(e => e.Nazwa)
-                .HasMaxLength(100)
-                .HasColumnName("nazwa");
+            entity.Property(e => e.Telefon)
+                .HasMaxLength(20)
+                .HasColumnName("telefon");
         });
 
         modelBuilder.Entity<TypyPom>(entity =>
@@ -237,14 +232,14 @@ public partial class szpitalContext : DbContext
 
             entity.HasIndex(e => e.IdWymaganegoPom, "FK_typy_wyd_pomieszczenia_idx");
 
-            entity.HasIndex(e => e.IdWymaganejSpec, "FK_typy_wyd_specjalizacje_idx");
+            entity.HasIndex(e => e.IdWymaganejFunk, "FK_typy_wyd_specjalizacje_idx");
 
             entity.HasIndex(e => e.Nazwa, "nazwa_UNIQUE").IsUnique();
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Dis).HasColumnName("dis");
             entity.Property(e => e.IdWymaganegoPom).HasColumnName("id_wymaganego_pom");
-            entity.Property(e => e.IdWymaganejSpec).HasColumnName("id_wymaganej_spec");
+            entity.Property(e => e.IdWymaganejFunk).HasColumnName("id_wymaganej_funk");
             entity.Property(e => e.Nazwa)
                 .HasMaxLength(100)
                 .HasColumnName("nazwa");
@@ -253,8 +248,8 @@ public partial class szpitalContext : DbContext
                 .HasForeignKey(d => d.IdWymaganegoPom)
                 .HasConstraintName("FK_typy_wyd_pomieszczenia");
 
-            entity.HasOne(d => d.IdWymaganejSpecNavigation).WithMany(p => p.TypyWyds)
-                .HasForeignKey(d => d.IdWymaganejSpec)
+            entity.HasOne(d => d.IdWymaganejFunkNavigation).WithMany(p => p.TypyWyds)
+                .HasForeignKey(d => d.IdWymaganejFunk)
                 .HasConstraintName("FK_typy_wyd_specjalizacje");
         });
 
@@ -394,33 +389,6 @@ public partial class szpitalContext : DbContext
                 .HasForeignKey(d => d.IdTypyWyd)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_wydarzenia_typy_wyd");
-        });
-
-        modelBuilder.Entity<Zabiegi>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PRIMARY");
-
-            entity.ToTable("zabiegi");
-
-            entity.HasIndex(e => e.IdPacjenci, "FK_zabiegi_pacjenci_idx");
-
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
-            entity.Property(e => e.DataZabiegu).HasColumnName("data_zabiegu");
-            entity.Property(e => e.Dis).HasColumnName("dis");
-            entity.Property(e => e.IdPacjenci).HasColumnName("id_pacjenci");
-            entity.Property(e => e.Nazwa)
-                .HasMaxLength(100)
-                .HasColumnName("nazwa");
-            entity.Property(e => e.Opis)
-                .HasMaxLength(500)
-                .HasColumnName("opis");
-
-            entity.HasOne(d => d.IdPacjenciNavigation).WithMany(p => p.Zabiegis)
-                .HasForeignKey(d => d.IdPacjenci)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_zabiegi_pacjenci");
         });
 
         OnModelCreatingPartial(modelBuilder);

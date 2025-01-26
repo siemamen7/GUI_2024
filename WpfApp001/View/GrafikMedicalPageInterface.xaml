@@ -19,50 +19,50 @@
         <!-- Week Selection -->
         <StackPanel Grid.Column="0" Margin="5">
             <TextBlock Style="{StaticResource GlobalTextBlockStyle}" Text="Tydzień" FontWeight="Bold" Margin="0,0,0,5" />
-            <ListBox x:Name="WeekListBox" SelectionMode="Multiple" MaxHeight="100">
-                <ListBoxItem Content="1 - 7.12.2024" />
-                <ListBoxItem Content="8 - 14.12.2024" />
-                <ListBoxItem Content="15 - 21.12.2024" />
+            <ComboBox x:Name="WeekComboBox" Style="{StaticResource CustomComboBoxStyle}">
+                <ComboBoxItem Content="1 - 7.12.2024" />
+                <ComboBoxItem Content="8 - 14.12.2024" />
+                <ComboBoxItem Content="15 - 21.12.2024" />
                 <!-- Add more weeks as needed -->
-            </ListBox>
+            </ComboBox>
         </StackPanel>
 
         <!-- Day Selection -->
         <StackPanel Grid.Column="1" Margin="5">
             <TextBlock Style="{StaticResource GlobalTextBlockStyle}" Text="Dzień" FontWeight="Bold" Margin="0,0,0,5" />
-            <ListBox x:Name="DayListBox" SelectionMode="Multiple" MaxHeight="100">
-                <ListBoxItem Content="Poniedziałek" />
-                <ListBoxItem Content="Wtorek" />
-                <ListBoxItem Content="Środa" />
-                <ListBoxItem Content="Czwartek" />
-                <ListBoxItem Content="Piątek" />
-                <ListBoxItem Content="Sobota" />
-                <ListBoxItem Content="Niedziela" />
-            </ListBox>
+            <ComboBox x:Name="DayComboBox" Style="{StaticResource CustomComboBoxStyle}">
+                <ComboBoxItem Content="Poniedziałek" />
+                <ComboBoxItem Content="Wtorek" />
+                <ComboBoxItem Content="Środa" />
+                <ComboBoxItem Content="Czwartek" />
+                <ComboBoxItem Content="Piątek" />
+                <ComboBoxItem Content="Sobota" />
+                <ComboBoxItem Content="Niedziela" />
+            </ComboBox>
         </StackPanel>
 
         <!-- Hour Selection -->
         <StackPanel Grid.Column="2" Margin="5">
             <TextBlock Style="{StaticResource GlobalTextBlockStyle}" Text="Godziny" FontWeight="Bold" Margin="0,0,0,5" />
-            <ListBox x:Name="HourListBox" SelectionMode="Multiple" MaxHeight="100">
-                <ListBoxItem Content="7:30" />
-                <ListBoxItem Content="8:00" />
-                <ListBoxItem Content="8:30" />
-                <ListBoxItem Content="9:00" />
-                <ListBoxItem Content="9:30" />
-                <ListBoxItem Content="10:00" />
-                <ListBoxItem Content="10:30" />
-                <ListBoxItem Content="11:00" />
-                <ListBoxItem Content="11:30" />
-                <ListBoxItem Content="12:00" />
-                <ListBoxItem Content="12:30" />
+            <ComboBox x:Name="HourComboBox" Style="{StaticResource CustomComboBoxStyle}">
+                <ComboBoxItem Content="7:30" />
+                <ComboBoxItem Content="8:00" />
+                <ComboBoxItem Content="8:30" />
+                <ComboBoxItem Content="9:00" />
+                <ComboBoxItem Content="9:30" />
+                <ComboBoxItem Content="10:00" />
+                <ComboBoxItem Content="10:30" />
+                <ComboBoxItem Content="11:00" />
+                <ComboBoxItem Content="11:30" />
+                <ComboBoxItem Content="12:00" />
+                <ComboBoxItem Content="12:30" />
                 <!-- Add more hours as needed -->
-            </ListBox>
+            </ComboBox>
         </StackPanel>
 
         <!-- Search Button -->
         <StackPanel Grid.Column="3" Margin="5" VerticalAlignment="Top">
-            <Button x:Name="SearchButton" Content="Szukaj" Width="100" Height="30" Margin="5" />
+            <Button Style="{StaticResource CustomSendButtonStyle}" x:Name="SearchButton" Content="Szukaj" Width="100" Height="30" Margin="5" />
         </StackPanel>
     </Grid>
 </Page>

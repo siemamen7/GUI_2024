@@ -19,11 +19,9 @@ public partial class Pacjenci
 
     public DateOnly DataRejestracji { get; set; }
 
+    public string? Informacje { get; set; }
+
     public sbyte Dis { get; set; }
 
-    public virtual ICollection<Leczenium> Leczenia { get; set; } = new List<Leczenium>();
-
     public virtual ICollection<WydPacj> WydPacjs { get; set; } = new List<WydPacj>();
-
-    public virtual ICollection<Zabiegi> Zabiegis { get; set; } = new List<Zabiegi>();
 }
