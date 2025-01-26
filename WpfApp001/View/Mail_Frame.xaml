@@ -9,46 +9,45 @@
       Title="Mail_Frame">
 
     <Grid Margin="10">
-        <!-- Podział na 3 kolumny: pasek boczny, lista wiadomości, pole do pisania wiadomości -->
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200" />
-            <!-- Pasek boczny -->
             <ColumnDefinition Width="*" />
-            <!-- Lista wiadomości -->
         </Grid.ColumnDefinitions>
 
         <!-- Pasek boczny - Lista osób -->
         <Border Style="{StaticResource CustomBorderStyle}" BorderBrush="{StaticResource SecondaryLightBrush}" BorderThickness="2" Margin="5" CornerRadius="10">
             <StackPanel Grid.Column="0" Margin="5">
                 <TextBlock Style="{StaticResource GlobalTextBlockStyle}" Text="Kontakty" Margin="10" FontSize="16" FontWeight="Bold" />
-                <Button Content="Osoba 1" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Margin="5" FontWeight="Bold" Foreground="#FFD0D6D6" />
-                <Button Content="Osoba 2" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Margin="5" FontWeight="Bold" Foreground="#FFD0D6D6" />
-                <Button Content="Osoba 3" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Margin="5" FontWeight="Bold" Foreground="#FFD0D6D6" />
+                <ItemsControl ItemsSource="{Binding Contacts}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button Content="{Binding Name}" 
+                                    Command="{Binding DataContext.SelectContactCommand, RelativeSource={RelativeSource AncestorType=Page}}" 
+                                    CommandParameter="{Binding}"
+                                    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" 
+                                    Margin="5" FontWeight="Bold" Foreground="#FFD0D6D6" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </StackPanel>
         </Border>
 
         <!-- Lista wiadomości -->
-        <ListBox Grid.Column="1" Margin="10,10,10,72" Style="{StaticResource CustomListBoxStyle}" >
-            
-            <ListBoxItem>
-                <StackPanel>
-                    <TextBlock Text="Osoba 1" FontWeight="Bold" />
-                    <TextBlock Text="Cześć, jak się masz?" />
-                </StackPanel>
-            </ListBoxItem>
-            <ListBoxItem>
-                <StackPanel>
-                    <TextBlock Text="Osoba 2" FontWeight="Bold" />
-                    <TextBlock Text="Wszystko w porządku!" />
-                </StackPanel>
-            </ListBoxItem>
+        <ListBox Grid.Column="1" Margin="10,10,10,72" Style="{StaticResource CustomListBoxStyle}" ItemsSource="{Binding Messages}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding Sender}" FontWeight="Bold" />
+                        <TextBlock Text="{Binding Content}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
         </ListBox>
-         
 
-      
-        <StackPanel Grid.Column="1" VerticalAlignment="Bottom" Orientation="Horizontal"  Margin="5">
-            <TextBox Width="600" Height="40" Margin="5" Style="{StaticResource CustomTextBoxStyle}"/>
-            <Button Content="Wyślij" Width="80" Margin="5" VerticalAlignment="Center" Style="{StaticResource CustomSendButtonStyle}" />
+        <!-- Pole do pisania wiadomości -->
+        <StackPanel Grid.Column="1" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="5">
+            <TextBox Width="600" Height="40" Margin="5" Style="{StaticResource CustomTextBoxStyle}" Text="{Binding NewMessage, UpdateSourceTrigger=PropertyChanged}" />
+            <Button Content="Wyślij" Width="80" Margin="5" VerticalAlignment="Center" Style="{StaticResource CustomSendButtonStyle}" Command="{Binding SendMessageCommand}" />
         </StackPanel>
     </Grid>
 </Page>

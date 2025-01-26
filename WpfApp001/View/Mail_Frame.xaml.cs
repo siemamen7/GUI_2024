@@ -12,17 +12,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp001.ViewModel;
 
 namespace WpfApp001.View
 {
-    /// <summary>
-    /// Interaction logic for Mail_Frame.xaml
-    /// </summary>
     public partial class Mail_Frame : Page
     {
         public Mail_Frame()
         {
             InitializeComponent();
+            DataContext = new MailFrameViewModel();
         }
     }
 }
