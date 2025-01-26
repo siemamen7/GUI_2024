@@ -120,54 +120,34 @@ namespace WpfApp001.Data
 
                 }
                 
-
-                // Save changes to the database
                 context.SaveChanges();
-            }
 
-            // Update the ObservableCollection in the Storage class
-            var collectionProperty = this.GetType().GetProperties()
-                .FirstOrDefault(p => p.PropertyType.IsGenericType &&
-                                     p.PropertyType.GetGenericTypeDefinition() == typeof(ObservableCollection<>) &&
-                                     p.PropertyType.GenericTypeArguments[0] == typeof(T));
+                // Update the ObservableCollection in the Storage class
+                var collectionProperty = this.GetType().GetProperties()
+                    .FirstOrDefault(p => p.PropertyType.IsGenericType &&
+                                         p.PropertyType.GetGenericTypeDefinition() == typeof(ObservableCollection<>) &&
+                                         p.PropertyType.GenericTypeArguments[0] == typeof(T));
 
-            if (collectionProperty != null)
-            {
-                // Get the ObservableCollection<T>
-                var collection = collectionProperty.GetValue(this) as ObservableCollection<T>;
-                if (collection != null)
+                if (collectionProperty != null)
                 {
-                    // Find and update the element in the collection
-                    var elementIdProperty = typeof(T).GetProperty("Id");
-                    if (elementIdProperty != null)
-                    {
-                        var elementId = elementIdProperty.GetValue(element);
-                        var existingElement = collection.FirstOrDefault(e =>
-                            elementIdProperty.GetValue(e)?.Equals(elementId) == true);
 
-                        if (existingElement != null)
-                        {
-                            // Update the existing element in the ObservableCollection
-                            var index = collection.IndexOf(existingElement);
-                            collection.RemoveAt(index);
-                            collection.Insert(index, element);
-                        }
-                        else
-                        {
-                            // Add the new element to the ObservableCollection
-                            collection.Add(element);
-                        }
-                    }
-                    else
-                    {
-                        throw new ArgumentException($"Type {typeof(T).Name} does not have a property named 'Id' NEDOBRE NOVINKY BO POWINIEN MIEC");
-                    }
+                    var updatedList = dbSet.Where(e => typeof(T).GetProperty("dis").GetValue(e).Equals(0) == true).ToList();
+
+                    var observableCollection = new ObservableCollection<T>(updatedList);
+                    collectionProperty.SetValue(this, observableCollection);
+    
                 }
+                else
+                {
+                    throw new ArgumentException($"No ObservableCollection found for type {typeof(T).Name}");
+                }
+
+
+
+
             }
-            else
-            {
-                throw new ArgumentException($"No ObservableCollection found for type {typeof(T).Name}");
-            }
+
+            
         }
 
     }

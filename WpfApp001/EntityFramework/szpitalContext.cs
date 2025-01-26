@@ -16,10 +16,6 @@ public partial class szpitalContext : DbContext
     {
     }
 
-    public virtual DbSet<Leczenium> Leczenia { get; set; }
-
-    public virtual DbSet<Leki> Lekis { get; set; }
-
     public virtual DbSet<Pacjenci> Pacjencis { get; set; }
 
     public virtual DbSet<Pomieszczenium> Pomieszczenia { get; set; }
@@ -44,8 +40,6 @@ public partial class szpitalContext : DbContext
 
     public virtual DbSet<Wydarzenium> Wydarzenia { get; set; }
 
-    public virtual DbSet<Zabiegi> Zabiegis { get; set; }
-
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseMySql("server=projekt-interfejsy.mysql.database.azure.com;database=szpital;userid=szczuras;password=Interfejsy123;sslmode=Required", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.39-mysql"));
 
@@ -54,43 +48,6 @@ public partial class szpitalContext : DbContext
         modelBuilder
             .UseCollation("utf8mb3_general_ci")
             .HasCharSet("utf8mb3");
-
-        modelBuilder.Entity<Leczenium>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PRIMARY");
-
-            entity.ToTable("leczenia");
-
-            entity.HasIndex(e => e.IdPacjenci, "FK_leczenia_pacjenci_idx");
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.DataRozpoczecia).HasColumnName("data_rozpoczecia");
-            entity.Property(e => e.DataZakonczenia).HasColumnName("data_zakonczenia");
-            entity.Property(e => e.Dis).HasColumnName("dis");
-            entity.Property(e => e.IdPacjenci).HasColumnName("id_pacjenci");
-            entity.Property(e => e.Opis)
-                .HasMaxLength(500)
-                .HasColumnName("opis");
-
-            entity.HasOne(d => d.IdPacjenciNavigation).WithMany(p => p.Leczenia)
-                .HasForeignKey(d => d.IdPacjenci)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_leczenia_pacjenci");
-        });
-
-        modelBuilder.Entity<Leki>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PRIMARY");
-
-            entity.ToTable("leki");
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Dis).HasColumnName("dis");
-            entity.Property(e => e.IdLeczenia).HasColumnName("id_leczenia");
-            entity.Property(e => e.Nazwa)
-                .HasMaxLength(100)
-                .HasColumnName("nazwa");
-        });
 
         modelBuilder.Entity<Pacjenci>(entity =>
         {
@@ -108,6 +65,9 @@ public partial class szpitalContext : DbContext
             entity.Property(e => e.Imie)
                 .HasMaxLength(100)
                 .HasColumnName("imie");
+            entity.Property(e => e.Informacje)
+                .HasMaxLength(500)
+                .HasColumnName("informacje");
             entity.Property(e => e.Nazwisko)
                 .HasMaxLength(100)
                 .HasColumnName("nazwisko");
@@ -398,33 +358,6 @@ public partial class szpitalContext : DbContext
                 .HasForeignKey(d => d.IdTypyWyd)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_wydarzenia_typy_wyd");
-        });
-
-        modelBuilder.Entity<Zabiegi>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PRIMARY");
-
-            entity.ToTable("zabiegi");
-
-            entity.HasIndex(e => e.IdPacjenci, "FK_zabiegi_pacjenci_idx");
-
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
-            entity.Property(e => e.DataZabiegu).HasColumnName("data_zabiegu");
-            entity.Property(e => e.Dis).HasColumnName("dis");
-            entity.Property(e => e.IdPacjenci).HasColumnName("id_pacjenci");
-            entity.Property(e => e.Nazwa)
-                .HasMaxLength(100)
-                .HasColumnName("nazwa");
-            entity.Property(e => e.Opis)
-                .HasMaxLength(500)
-                .HasColumnName("opis");
-
-            entity.HasOne(d => d.IdPacjenciNavigation).WithMany(p => p.Zabiegis)
-                .HasForeignKey(d => d.IdPacjenci)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_zabiegi_pacjenci");
         });
 
         OnModelCreatingPartial(modelBuilder);
