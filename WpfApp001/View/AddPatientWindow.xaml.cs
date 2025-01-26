@@ -29,8 +29,8 @@ namespace WpfApp001.View
         private void AddPatient_Click(object sender, RoutedEventArgs e)
         {
             // Validate user input (e.g., check if fields are not empty)
-            if (string.IsNullOrWhiteSpace(FirstNameTextBox.Text) ||
-                string.IsNullOrWhiteSpace(LastNameTextBox.Text) ||
+            if (string.IsNullOrWhiteSpace(ImieTextBox.Text) ||
+                string.IsNullOrWhiteSpace(NazwiskoTextBox.Text) ||
                 string.IsNullOrWhiteSpace(PeselTextBox.Text))
             {
                 MessageBox.Show("Please fill in all fields.");
@@ -40,8 +40,8 @@ namespace WpfApp001.View
             // Create a new patient object using the input values
             var newPatient = new Pacjenci
             {
-                Imie = FirstNameTextBox.Text,
-                Nazwisko = LastNameTextBox.Text,
+                Imie = ImieTextBox.Text,
+                Nazwisko = NazwiskoTextBox.Text,
                 Pesel = PeselTextBox.Text,
                 DataUrodzenia = DateOnly.FromDateTime(DateTime.Now.AddYears(-30)), // Example default
                 DataRejestracji = DateOnly.FromDateTime(DateTime.Now),
@@ -52,12 +52,12 @@ namespace WpfApp001.View
             Storage.Instance.UpdateElement(newPatient);
 
             // Clear the input fields after adding
-            FirstNameTextBox.Text = "";
-            LastNameTextBox.Text = "";
+            ImieTextBox.Text = "";
+            NazwiskoTextBox.Text = "";
             PeselTextBox.Text = "";
 
             // Refresh the DataGrid
-            RefreshDataGrid();
+            //RefreshDataGrid();
         }
     }
 }

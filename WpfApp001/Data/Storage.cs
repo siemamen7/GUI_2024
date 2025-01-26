@@ -17,9 +17,6 @@ namespace WpfApp001.Data
     {
         private static Storage? _instance;
         public static Storage Instance => _instance ??= new Storage();
-        public ObservableCollection<Leczenium>? Leczenia { get; set; }
-
-        public ObservableCollection<Leki>? Lekis { get; set; }
 
         public ObservableCollection<Pacjenci>? Pacjencis { get; set; }
 
@@ -45,15 +42,10 @@ namespace WpfApp001.Data
 
         public ObservableCollection<Wydarzenium>? Wydarzenia { get; set; }
 
-        public ObservableCollection<Zabiegi>? Zabiegis { get; set; }
-
-
         public Storage()
         {
             using (var context = new szpitalContext())
             {
-                Leczenia = new ObservableCollection<Leczenium>(context.Leczenia.ToList());
-                Lekis = new ObservableCollection<Leki>(context.Lekis.ToList());
                 Pacjencis = new ObservableCollection<Pacjenci>(context.Pacjencis.ToList());
                 Pomieszczenia = new ObservableCollection<Pomieszczenium>(context.Pomieszczenia.ToList());
                 Pracownicies = new ObservableCollection<Pracownicy>(context.Pracownicies.ToList());
@@ -66,7 +58,6 @@ namespace WpfApp001.Data
                 WydPacjs = new ObservableCollection<WydPacj>(context.WydPacjs.ToList());
                 WydPracs = new ObservableCollection<WydPrac>(context.WydPracs.ToList());
                 Wydarzenia = new ObservableCollection<Wydarzenium>(context.Wydarzenia.ToList());
-                Zabiegis = new ObservableCollection<Zabiegi>(context.Zabiegis.ToList());
             }
 
         }
