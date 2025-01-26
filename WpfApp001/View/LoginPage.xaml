@@ -29,10 +29,10 @@
         <TextBlock Style="{StaticResource GlobalTextBlockStyle}" Grid.Row="1" Grid.Column="1" Text="Login" FontSize="24" FontWeight="Bold"  HorizontalAlignment="Center" Margin="0,20,0,20" />
 
         <TextBlock Style="{StaticResource GlobalTextBlockStyle}" Grid.Row="2" Grid.Column="1" Text="Użytkownik:" FontSize="16"  Margin="0,0,0,5" HorizontalAlignment="Left" />
-        <TextBox Grid.Row="3" Grid.Column="1" Width="300" Height="40"  Margin="0,0,0,10" />
+        <TextBox Name="LoginTextBox" Grid.Row="3" Grid.Column="1" Width="300" Height="40"  Margin="0,0,0,10" />
 
         <TextBlock Style="{StaticResource GlobalTextBlockStyle}" Grid.Row="4" Grid.Column="1" Text="Hasło:" FontSize="16"  Margin="0,0,0,5" HorizontalAlignment="Left" />
-        <PasswordBox Grid.Row="5" Grid.Column="1" Width="300" Height="40"   />
+        <PasswordBox Name="PasswordBox" Grid.Row="5" Grid.Column="1" Width="300" Height="40"   />
 
         <Button Style="{StaticResource ButtonTextBlockStyle}" Grid.Row="6" Grid.Column="1" Width="200" Height="25" Content="Potwierdź" 
                 VerticalAlignment="Center" HorizontalAlignment="Center" Click="MoveTODO" Command="{Binding LoginCommand}" />
