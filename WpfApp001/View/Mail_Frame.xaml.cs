@@ -15,14 +15,12 @@ using System.Windows.Shapes;
 
 namespace WpfApp001.View
 {
-    /// <summary>
-    /// Interaction logic for Mail_Frame.xaml
-    /// </summary>
     public partial class Mail_Frame : Page
     {
         public Mail_Frame()
         {
             InitializeComponent();
+            //DataContext = new MailFrameViewModel();
         }
     }
 }

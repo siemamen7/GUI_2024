@@ -25,6 +25,8 @@ public partial class Pracownicy
 
     public byte Dis { get; set; }
 
+    public virtual Funkcje? IdFunkcjiNavigation { get; set; }
+
     public virtual ICollection<Urlopy> Urlopies { get; set; } = new List<Urlopy>();
 
     public virtual ICollection<Uzytkownicy> Uzytkownicies { get; set; } = new List<Uzytkownicy>();

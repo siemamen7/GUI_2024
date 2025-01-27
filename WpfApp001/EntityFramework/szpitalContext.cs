@@ -18,13 +18,7 @@ public partial class szpitalContext : DbContext
 
     public virtual DbSet<Funkcje> Funkcjes { get; set; }
 
-    public virtual DbSet<Mailcontact> Mailcontacts { get; set; }
-
-    public virtual DbSet<Mailcontact1> Mailcontacts1 { get; set; }
-
     public virtual DbSet<Mailmessage> Mailmessages { get; set; }
-
-    public virtual DbSet<Mailmessage1> Mailmessages1 { get; set; }
 
     public virtual DbSet<Pacjenci> Pacjencis { get; set; }
 
@@ -71,56 +65,32 @@ public partial class szpitalContext : DbContext
                 .HasColumnName("nazwa");
         });
 
-        modelBuilder.Entity<Mailcontact>(entity =>
-        {
-            entity.HasKey(e => e.MailContactId).HasName("PRIMARY");
-
-            entity.ToTable("mailcontact");
-
-            entity.Property(e => e.Name).HasMaxLength(255);
-        });
-
-        modelBuilder.Entity<Mailcontact1>(entity =>
-        {
-            entity.HasKey(e => e.MailContactId).HasName("PRIMARY");
-
-            entity.ToTable("mailcontacts");
-
-            entity.Property(e => e.Name).HasMaxLength(255);
-        });
-
         modelBuilder.Entity<Mailmessage>(entity =>
         {
-            entity.HasKey(e => e.MailMessageId).HasName("PRIMARY");
-
-            entity.ToTable("mailmessage");
-
-            entity.HasIndex(e => e.MailContactId, "MailContactId");
-
-            entity.Property(e => e.Content).HasMaxLength(255);
-            entity.Property(e => e.Sender).HasMaxLength(255);
-
-            entity.HasOne(d => d.MailContact).WithMany(p => p.Mailmessages)
-                .HasForeignKey(d => d.MailContactId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("mailmessage_ibfk_1");
-        });
-
-        modelBuilder.Entity<Mailmessage1>(entity =>
-        {
-            entity.HasKey(e => e.MailMessageId).HasName("PRIMARY");
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
 
             entity.ToTable("mailmessages");
 
-            entity.HasIndex(e => e.MailContactId, "MailContactId");
+            entity.HasIndex(e => e.SenderId, "FK_mail1_idx");
 
-            entity.Property(e => e.Content).HasMaxLength(255);
-            entity.Property(e => e.Sender).HasMaxLength(255);
+            entity.HasIndex(e => e.ReceiverId, "FK_mail2_idx");
 
-            entity.HasOne(d => d.MailContact).WithMany(p => p.Mailmessage1s)
-                .HasForeignKey(d => d.MailContactId)
+            entity.Property(e => e.Content)
+                .HasMaxLength(255)
+                .HasColumnName("content");
+            entity.Property(e => e.Dis).HasColumnName("dis");
+            entity.Property(e => e.ReceiverId).HasColumnName("receiverId");
+            entity.Property(e => e.SenderId).HasColumnName("senderId");
+
+            entity.HasOne(d => d.Receiver).WithMany(p => p.MailmessageReceivers)
+                .HasForeignKey(d => d.ReceiverId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("mailmessages_ibfk_1");
+                .HasConstraintName("FK_mail2");
+
+            entity.HasOne(d => d.Sender).WithMany(p => p.MailmessageSenders)
+                .HasForeignKey(d => d.SenderId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_mail1");
         });
 
         modelBuilder.Entity<Pacjenci>(entity =>
@@ -185,6 +155,8 @@ public partial class szpitalContext : DbContext
 
             entity.ToTable("pracownicy");
 
+            entity.HasIndex(e => e.IdFunkcji, "FK_pracownicy_funkcje_idx");
+
             entity.HasIndex(e => e.Pesel, "pesel_UNIQUE").IsUnique();
 
             entity.Property(e => e.Id).HasColumnName("id");
@@ -207,6 +179,10 @@ public partial class szpitalContext : DbContext
             entity.Property(e => e.Telefon)
                 .HasMaxLength(20)
                 .HasColumnName("telefon");
+
+            entity.HasOne(d => d.IdFunkcjiNavigation).WithMany(p => p.Pracownicies)
+                .HasForeignKey(d => d.IdFunkcji)
+                .HasConstraintName("FK_pracownicy_funkcje");
         });
 
         modelBuilder.Entity<TypyPom>(entity =>

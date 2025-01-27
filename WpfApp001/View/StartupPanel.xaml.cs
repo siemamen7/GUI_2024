@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp001.Data;
 //using WpfApp001.Classes;
 
 namespace WpfApp001.View
@@ -24,6 +25,7 @@ namespace WpfApp001.View
         public StartupPanel()
         {
             InitializeComponent();
+            var storage = Storage.Instance;
         }
 
         private void MoveToUser(object sender, RoutedEventArgs e)

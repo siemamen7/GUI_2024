@@ -43,8 +43,8 @@
             </ComboBox>
         </StackPanel>
 
-        <Button Style="{StaticResource CustomSendButtonStyle}" Grid.Column="3" Content="Szukaj" Width="100" Margin="5,21,5,0" VerticalAlignment="Top" Click="SearchButton_Click" Height="58"/>
-        <Button Style="{StaticResource CustomSendButtonStyle}" Grid.Column="3" Content="Urlop" Width="100" Margin="5,91,5,0" VerticalAlignment="Top" Click="UrlopButton_Click" Height="58"/>
+        <Button Style="{StaticResource CustomSendButtonStyle}" Grid.Column="3" Content="Szukaj" Width="100" Margin="5,21,5,0" VerticalAlignment="Top" Height="58"/>
+        <Button Style="{StaticResource CustomSendButtonStyle}" Grid.Column="3" Content="Urlop" Width="100" Margin="5,91,5,0" VerticalAlignment="Top" Height="58"/>
         <!-- Add Employee Button -->
 
     </Grid>

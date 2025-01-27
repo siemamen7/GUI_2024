@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ViewModel\MailFrameViewModel.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Styles\Icons\logout.png" />
     <None Remove="Styles\Icons\stethoscope.png" />
     <None Remove="Styles\Icons\workplace.png" />
@@ -19,6 +23,7 @@
     <Folder Include="MVVM\" />
     <Folder Include="EntityFramework\" />
     <Folder Include="Styles\Pictures\" />
+    <Folder Include="ViewModel\" />
   </ItemGroup>
 
   <ItemGroup>

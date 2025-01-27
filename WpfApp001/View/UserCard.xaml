@@ -24,12 +24,12 @@
                 <!-- User Name -->
                 <TextBlock Text="Użytkownik:" FontWeight="Bold" FontSize="16"/>
                 <TextBlock Grid.Row="0" Grid.Column="1" Margin="10,0,-72,0" FontSize="16">
-                    <Run Text="[UserNa"/><Run Text="me]"/>
+                    <Run Text="{Binding CurrentUserName}"/>
                 </TextBlock>
 
                 <!-- Position -->
-                <TextBlock Text="Stanowisko:" FontWeight="Bold" FontSize="16" Grid.Row="1"/>
-                <TextBlock Text="[Position]" Grid.Column="1" Margin="10,21,-27,21" FontSize="16" Grid.RowSpan="3"/>
+                <TextBlock Text="Funkcja:" FontWeight="Bold" FontSize="16" Grid.Row="1"/>
+                <TextBlock Text="{Binding CurrentUserPosition}" Grid.Column="1" Margin="10,21,-27,21" FontSize="16" Grid.RowSpan="3"/>
 
                 <!-- Date and Time -->
                 <TextBlock Text="Data i godzina:" FontWeight="Bold" FontSize="16" Grid.Row="2"/>

@@ -10,13 +10,13 @@
 
     <Grid Background="{StaticResource AmbientBackground}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="53*"/>
+            <RowDefinition Height="100*"/>
             <RowDefinition Height="307*"/>
         </Grid.RowDefinitions>
 
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="169*"/>
+            <ColumnDefinition Width="150*"/>
             <ColumnDefinition Width="727*"/>
             <ColumnDefinition Width="64*"/>
         </Grid.ColumnDefinitions>

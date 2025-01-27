@@ -5,13 +5,17 @@ namespace WpfApp001.EntityFramework;
 
 public partial class Mailmessage
 {
-    public int MailMessageId { get; set; }
+    public int Id { get; set; }
 
-    public string Sender { get; set; } = null!;
+    public int SenderId { get; set; }
+
+    public int ReceiverId { get; set; }
 
     public string Content { get; set; } = null!;
 
-    public int MailContactId { get; set; }
+    public sbyte Dis { get; set; }
 
-    public virtual Mailcontact MailContact { get; set; } = null!;
+    public virtual Uzytkownicy Receiver { get; set; } = null!;
+
+    public virtual Uzytkownicy Sender { get; set; } = null!;
 }

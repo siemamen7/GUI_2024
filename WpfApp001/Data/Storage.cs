@@ -18,15 +18,14 @@ namespace WpfApp001.Data
         private static Storage? _instance;
         public static Storage Instance => _instance ??= new Storage();
 
+        public ObservableCollection<Mailmessage>? Mailmessages { get; set; }
+        public ObservableCollection<Funkcje>? Funkcjes { get; set; }
+
         public ObservableCollection<Pacjenci>? Pacjencis { get; set; }
 
         public ObservableCollection<Pomieszczenium>? Pomieszczenia { get; set; }
 
         public ObservableCollection<Pracownicy>? Pracownicies { get; set; }
-
-        public ObservableCollection<SpecPrac>? SpecPracs { get; set; }
-
-        public ObservableCollection<Specjalizacje>? Specjalizacjes { get; set; }
 
         public ObservableCollection<TypyPom>? TypyPoms { get; set; }
 
@@ -46,11 +45,12 @@ namespace WpfApp001.Data
         {
             using (var context = new szpitalContext())
             {
+
+                Mailmessages = new ObservableCollection<Mailmessage>(context.Mailmessages.ToList());
+                Funkcjes = new ObservableCollection<Funkcje>(context.Funkcjes.ToList());
                 Pacjencis = new ObservableCollection<Pacjenci>(context.Pacjencis.ToList());
                 Pomieszczenia = new ObservableCollection<Pomieszczenium>(context.Pomieszczenia.ToList());
                 Pracownicies = new ObservableCollection<Pracownicy>(context.Pracownicies.ToList());
-                SpecPracs = new ObservableCollection<SpecPrac>(context.SpecPracs.ToList());
-                Specjalizacjes = new ObservableCollection<Specjalizacje>(context.Specjalizacjes.ToList());
                 TypyPoms = new ObservableCollection<TypyPom>(context.TypyPoms.ToList());
                 TypyWyds = new ObservableCollection<TypyWyd>(context.TypyWyds.ToList());
                 Urlopies = new ObservableCollection<Urlopy>(context.Urlopies.ToList());
@@ -122,7 +122,7 @@ namespace WpfApp001.Data
                 if (collectionProperty != null)
                 {
 
-                    var updatedList = dbSet.Where(e => typeof(T).GetProperty("dis").GetValue(e).Equals(0) == true).ToList();
+                    var updatedList = dbSet.AsEnumerable().Where(e => typeof(T).GetProperty("Dis").GetValue(e).Equals(0)).ToList();
 
                     var observableCollection = new ObservableCollection<T>(updatedList);
                     collectionProperty.SetValue(this, observableCollection);
