@@ -9,8 +9,53 @@
       Title="CoWorkersMedicalPage">
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="4*"/>
+        </Grid.RowDefinitions>
+        <Grid Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <!-- First Name Input -->
+            <StackPanel Grid.Column="0" Margin="5">
+                <TextBlock Style="{StaticResource GlobalTextBlockStyle}" Text="Imię" FontWeight="Bold" Margin="0,0,0,5" />
+                <TextBox Style="{StaticResource CustomTextBoxStyle}" Name="FirstNameTextBox" Width="150" Height="45"/>
+            </StackPanel>
+
+            <!-- Last Name Input -->
+            <StackPanel Grid.Column="1" Margin="5">
+                <TextBlock Style="{StaticResource GlobalTextBlockStyle}" Text="Nazwisko" FontWeight="Bold" Margin="0,0,0,5" />
+                <TextBox Style="{StaticResource CustomTextBoxStyle}" Name="LastNameTextBox" Width="150" Height="45"/>
+            </StackPanel>
+
+            <!-- Position Selection -->
+            <StackPanel Grid.Column="2" Margin="5">
+                <TextBlock Style="{StaticResource GlobalTextBlockStyle}" Text="Funkcja" FontWeight="Bold" Margin="0,0,0,5" />
+                <ComboBox Style="{StaticResource CustomComboBoxStyle}" Width="150" Height="45">
+                    <ComboBox.ItemContainerStyle>
+                        <Style TargetType="ComboBoxItem" BasedOn="{StaticResource CustomComboBoxItemStyle}" />
+                    </ComboBox.ItemContainerStyle>
+                    <ComboBoxItem Content="Lekarz" />
+                    <ComboBoxItem Content="Pielęgniarka" />
+                    <ComboBoxItem Content="Fizjoterapeuta" />
+                    <ComboBoxItem Content="Recepcjonistka" />
+                    <ComboBoxItem Content="Administrator" />
+                </ComboBox>
+            </StackPanel>
+
+            <Button Style="{StaticResource CustomSendButtonStyle}" Grid.Column="3" Content="Szukaj" Width="100" Margin="5,21,5,0" VerticalAlignment="Top" Height="58"/>
+            <Button Style="{StaticResource CustomSendButtonStyle}" Grid.Column="3" Content="Urlop" Width="100" Margin="5,91,5,0" VerticalAlignment="Top" Height="58"/>
+            <!-- Add Employee Button -->
+
+        </Grid>
         <!-- DataGrid to display employee information -->
-        <DataGrid Style="{StaticResource CustomDataGridStyle}" 
+        <DataGrid Grid.Row="1"
+            Style="{StaticResource CustomDataGridStyle}" 
                   Name="EmployeesDataGrid" 
                   AutoGenerateColumns="False" 
                   HorizontalAlignment="Stretch" 

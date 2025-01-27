@@ -9,7 +9,74 @@
       Title="AdminGrafikiPage">
 
     <Grid>
-        <DataGrid Style="{StaticResource CustomDataGridStyle}" 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="4*"/>
+        </Grid.RowDefinitions>
+        <Grid Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Week Selection -->
+            <StackPanel Grid.Column="0" Margin="5">
+                <TextBlock Style="{StaticResource GlobalTextBlockStyle}" Text="Tydzień" FontWeight="Bold" Margin="0,0,0,5" />
+                <ComboBox x:Name="WeekComboBox" Style="{StaticResource CustomComboBoxStyle}">
+                    <ComboBoxItem Content="1 - 7.12.2024" />
+                    <ComboBoxItem Content="8 - 14.12.2024" />
+                    <ComboBoxItem Content="15 - 21.12.2024" />
+                    <ComboBoxItem Content="22 - 28.12.2024" />
+                    <ComboBoxItem Content="29 - 04.12.2025" />
+                    <ComboBoxItem Content="05 - 11.12.2024" />
+                    <!-- Add more weeks as needed -->
+                </ComboBox>
+            </StackPanel>
+
+            <!-- Day Selection -->
+            <StackPanel Grid.Column="1" Margin="5">
+                <TextBlock Style="{StaticResource GlobalTextBlockStyle}" Text="Dzień" FontWeight="Bold" Margin="0,0,0,5" />
+                <ComboBox x:Name="DayComboBox" Style="{StaticResource CustomComboBoxStyle}">
+                    <ComboBoxItem Content="Poniedziałek" />
+                    <ComboBoxItem Content="Wtorek" />
+                    <ComboBoxItem Content="Środa" />
+                    <ComboBoxItem Content="Czwartek" />
+                    <ComboBoxItem Content="Piątek" />
+                    <ComboBoxItem Content="Sobota" />
+                    <ComboBoxItem Content="Niedziela" />
+                </ComboBox>
+            </StackPanel>
+
+            <!-- Hour Selection -->
+            <StackPanel Grid.Column="2" Margin="5">
+                <TextBlock Style="{StaticResource GlobalTextBlockStyle}" Text="Godziny" FontWeight="Bold" Margin="0,0,0,5" />
+                <ComboBox x:Name="HourComboBox" Style="{StaticResource CustomComboBoxStyle}">
+                    <ComboBoxItem Content="7:30" />
+                    <ComboBoxItem Content="8:00" />
+                    <ComboBoxItem Content="8:30" />
+                    <ComboBoxItem Content="9:00" />
+                    <ComboBoxItem Content="9:30" />
+                    <ComboBoxItem Content="10:00" />
+                    <ComboBoxItem Content="10:30" />
+                    <ComboBoxItem Content="11:00" />
+                    <ComboBoxItem Content="11:30" />
+                    <ComboBoxItem Content="12:00" />
+                    <ComboBoxItem Content="12:30" />
+                    <!-- Add more hours as needed -->
+                </ComboBox>
+            </StackPanel>
+
+            <!-- Search Button -->
+            <StackPanel Grid.Column="3" Margin="5" VerticalAlignment="Top">
+                <Button Style="{StaticResource CustomSendButtonStyle}" x:Name="SearchButton" Content="Szukaj" Width="100" Height="30" Margin="5" />
+            </StackPanel>
+        </Grid>
+
+
+        <DataGrid Grid.Row="1"
+                  ItemsSource="{Binding FilteredEvents}"
                   x:Name="TimetableGrid" 
                   AutoGenerateColumns="False" 
                   CanUserAddRows="False" 

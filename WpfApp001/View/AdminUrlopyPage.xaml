@@ -9,8 +9,42 @@
       Title="AdminUrlopyPage">
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="4*"/>
+        </Grid.RowDefinitions>
+        <Grid Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- First Name Field -->
+            <StackPanel Grid.Column="0" HorizontalAlignment="Left">
+                <Label Content="Imię" HorizontalAlignment="Center" Margin="5" FontSize="16" Foreground="#d0d6d6"/>
+                <TextBox Style="{StaticResource CustomTextBoxStyle}" Name="FirstNameTextBox" Width="200" Margin="5" FontSize="22"/>
+            </StackPanel>
+
+            <!-- Last Name Field -->
+            <StackPanel Grid.Column="1" HorizontalAlignment="Left">
+                <Label Content="Nazwisko" HorizontalAlignment="Center" Margin="5" FontSize="16" Foreground="#d0d6d6"/>
+                <TextBox Style="{StaticResource CustomTextBoxStyle}" Name="LastNameTextBox" Width="200" Margin="5" FontSize="22"/>
+            </StackPanel>
+
+            <!-- PESEL Field -->
+            <StackPanel Grid.Column="2" HorizontalAlignment="Left">
+                <Label Content="PESEL" HorizontalAlignment="Center" Margin="5" FontSize="16" Foreground="#d0d6d6"/>
+                <TextBox Style="{StaticResource CustomTextBoxStyle}" Name="PeselTextBox" Width="200" Margin="5" FontSize="22"/>
+            </StackPanel>
+
+            <!-- Search Button -->
+            <Button Style="{StaticResource CustomSendButtonStyle}" Grid.Column="3" Content="Szukaj" Width="100" Margin="5,21,5,0" VerticalAlignment="Top" Height="58"/>
+        </Grid>
         <!-- Scrollable DataGrid -->
-        <DataGrid Style="{StaticResource CustomDataGridStyle}" 
+        <DataGrid Grid.Row="1"
+            Style="{StaticResource CustomDataGridStyle}" 
                   x:Name="dataGrid" 
                   AutoGenerateColumns="False" 
                   HorizontalScrollBarVisibility="Auto" 

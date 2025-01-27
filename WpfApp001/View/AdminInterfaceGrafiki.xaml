@@ -23,6 +23,9 @@
                 <ComboBoxItem Content="1 - 7.12.2024" />
                 <ComboBoxItem Content="8 - 14.12.2024" />
                 <ComboBoxItem Content="15 - 21.12.2024" />
+                <ComboBoxItem Content="22 - 28.12.2024" />
+                <ComboBoxItem Content="29 - 04.12.2025" />
+                <ComboBoxItem Content="05 - 11.12.2024" />
                 <!-- Add more weeks as needed -->
             </ComboBox>
         </StackPanel>

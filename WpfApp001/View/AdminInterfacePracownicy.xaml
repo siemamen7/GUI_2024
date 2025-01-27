@@ -19,19 +19,19 @@
         <!-- First Name Input -->
         <StackPanel Grid.Column="0" Margin="5">
             <TextBlock Style="{StaticResource GlobalTextBlockStyle}" Text="Imię" FontWeight="Bold" Margin="0,0,0,5" />
-            <TextBox Style="{StaticResource CustomTextBoxStyle}" Name="FirstNameTextBox" Width="150" Height="30"/>
+            <TextBox Style="{StaticResource CustomTextBoxStyle}" Name="FirstNameTextBox" Width="150" Height="45"/>
         </StackPanel>
 
         <!-- Last Name Input -->
         <StackPanel Grid.Column="1" Margin="5">
             <TextBlock Style="{StaticResource GlobalTextBlockStyle}" Text="Nazwisko" FontWeight="Bold" Margin="0,0,0,5" />
-            <TextBox Style="{StaticResource CustomTextBoxStyle}" Name="LastNameTextBox" Width="150" Height="30"/>
+            <TextBox Style="{StaticResource CustomTextBoxStyle}" Name="LastNameTextBox" Width="150" Height="45"/>
         </StackPanel>
 
         <!-- Position Selection -->
         <StackPanel Grid.Column="2" Margin="5">
             <TextBlock Style="{StaticResource GlobalTextBlockStyle}" Text="Funkcja" FontWeight="Bold" Margin="0,0,0,5" />
-            <ComboBox Style="{StaticResource CustomComboBoxStyle}" Width="150" Height="30">
+            <ComboBox Style="{StaticResource CustomComboBoxStyle}" Width="150" Height="45">
                 <ComboBox.ItemContainerStyle>
                     <Style TargetType="ComboBoxItem" BasedOn="{StaticResource CustomComboBoxItemStyle}" />
                 </ComboBox.ItemContainerStyle>

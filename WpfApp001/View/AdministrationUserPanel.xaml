@@ -37,9 +37,7 @@
                 <Image Source="pack://application:,,,/WpfApp001;component/Styles/Icons/logout.png" />
             </Button.Content>
         </Button>
-        <Frame x:Name="AdminUserMainFrame" Grid.Row="1" Grid.Column="1" Source="CoWorkersMedicalPage.xaml" >
-        </Frame>
-        <Frame x:Name="AdminUserBarFrame" Grid.Row="0" Grid.Column="1" Source="CoWorkersMedicalPageInterface.xaml">
+        <Frame x:Name="AdminUserMainFrame" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Source="CoWorkersMedicalPage.xaml" >
         </Frame>
         <Frame x:Name="AdminUserCard" Grid.Row="0" Grid.Column="0" Source="UserCard.xaml">
         </Frame>

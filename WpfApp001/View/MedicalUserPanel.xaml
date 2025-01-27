@@ -35,9 +35,7 @@
             </Button.Content>
         </Button>
 
-        <Frame x:Name="MedicalUserMainFrame" Grid.Row="1" Grid.Column="1" >
-        </Frame>
-        <Frame x:Name="MedicalUserBarFrame" Grid.Row="0" Grid.Column="1" >
+        <Frame x:Name="MedicalUserMainFrame" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" >
         </Frame>
         <Frame x:Name="MedicalUserCard" Grid.Row="0" Grid.Column="0" Source="UserCard.xaml">
         </Frame>

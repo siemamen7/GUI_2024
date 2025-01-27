@@ -27,28 +27,24 @@ namespace WpfApp001.View
         private void OnGrafikButtonClick(object sender, RoutedEventArgs e)
         {
             
-            MedicalUserBarFrame.Source = new Uri("GrafikMedicalPageInterface.xaml", UriKind.Relative);
             MedicalUserMainFrame.Source = new Uri("GrafikMedicalPage.xaml", UriKind.Relative);
         }
 
         private void OnBazaPacjentowButtonClick(object sender, RoutedEventArgs e)
         {
             
-            MedicalUserBarFrame.Source = new Uri("PatientsBaseMedicalPageInterface.xaml", UriKind.Relative);
             MedicalUserMainFrame.Source = new Uri("PatientsBaseMedicalPage.xaml", UriKind.Relative);
         }
 
         private void OnBazaPracownikowButtonClick(object sender, RoutedEventArgs e)
         {
             
-            MedicalUserBarFrame.Source = new Uri("CoWorkersMedicalPageInterface.xaml", UriKind.Relative);
             MedicalUserMainFrame.Source = new Uri("CoWorkersMedicalPage.xaml", UriKind.Relative);
         }
 
         private void OnMailButtonClick(object sender, RoutedEventArgs e)
         {
 
-            MedicalUserBarFrame.Source = null;
             MedicalUserMainFrame.Source = new Uri("Mail_Frame.xaml", UriKind.Relative);
         }
         private void MoveTODO(object sender, RoutedEventArgs e)

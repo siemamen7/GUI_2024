@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp001.Data;
+using WpfApp001.ViewModel;
 
 namespace WpfApp001.View
 {
@@ -23,6 +25,8 @@ namespace WpfApp001.View
         public AdminGrafikiPage()
         {
             InitializeComponent();
+            DataContext = new WydarzeniaViewModel();
+
         }
     }
 }
