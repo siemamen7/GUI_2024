@@ -23,12 +23,12 @@
 
 
         <StackPanel Grid.Row="1" Grid.Column="0">
-            <Button Style ="{StaticResource RoundedButtonStyle}" Content="Grafiki" Margin=" 10"/>
-            <Button Style ="{StaticResource RoundedButtonStyle}" Content="Pomieszczenia" Margin=" 10"/>
-            <Button Style ="{StaticResource RoundedButtonStyle}" Content="Pracownicy" Margin=" 10"/>
-            <Button Style ="{StaticResource RoundedButtonStyle}" Content="Pacjenci" Margin=" 10"/>
-            <Button Style ="{StaticResource RoundedButtonStyle}" Content="Urlopy" Margin=" 10"/>
-            <Button Style ="{StaticResource RoundedButtonStyle}" Content="Mail" Margin=" 10" Background ="LightBlue"/>
+            <Button Name="GoToGrafikiButton" Style ="{StaticResource RoundedButtonStyle}" Content="Grafiki" Margin=" 10" Click="GoToGrafikiButton_Click"/>
+            <Button Name="GoToPomieszczeniaButton" Style ="{StaticResource RoundedButtonStyle}" Content="Pomieszczenia" Margin=" 10" Click="GoToPomieszczeniaButton_Click"/>
+            <Button Name="GoToPracownicyButton" Style ="{StaticResource RoundedButtonStyle}" Content="Pracownicy" Margin=" 10" Click="GoToPracownicyButton_Click"/>
+            <Button Name="GoToPacjenciButton" Style ="{StaticResource RoundedButtonStyle}" Content="Pacjenci" Margin=" 10" Click="GoToPacjenciButton_Click"/>
+            <Button Name="GoToUrlopyButton" Style ="{StaticResource RoundedButtonStyle}" Content="Urlopy" Margin=" 10" Click="GoToUrlopyButton_Click"/>
+            <Button Name="GoToMailButton" Style ="{StaticResource RoundedButtonStyle}" Content="Mail" Margin=" 10" Background ="LightBlue" Click="GoToMailButton_Click"/>
         </StackPanel>
         <StackPanel/>
 

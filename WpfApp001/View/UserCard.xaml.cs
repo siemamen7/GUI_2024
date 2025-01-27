@@ -27,7 +27,14 @@ namespace WpfApp001.View
 
             dynamic currentUser = Application.Current.Properties["LoggedInEmployee"];
             CurrentUserName = $"{currentUser.Imie} {currentUser.Nazwisko}";
-            CurrentUserPosition = currentUser.Funkcja;
+            if (currentUser.IdFunkcjiNavigation != null)
+            {
+                CurrentUserPosition = currentUser.IdFunkcjiNavigation.Nazwa;
+            }
+            else
+            {
+                CurrentUserPosition = "Brak przypisanej funkcji";
+            }
 
             var timer = new DispatcherTimer
             {
