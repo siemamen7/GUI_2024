@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -110,7 +111,6 @@ namespace WpfApp001.Data
                     }
 
                 }
-                
                 context.SaveChanges();
 
                 // Update the ObservableCollection in the Storage class
@@ -121,12 +121,12 @@ namespace WpfApp001.Data
 
                 if (collectionProperty != null)
                 {
-
-                    var updatedList = dbSet.AsEnumerable().Where(e => typeof(T).GetProperty("Dis").GetValue(e).Equals(0)).ToList();
-
+ 
+                    var updatedList = dbSet.ToList().AsEnumerable();
+                    updatedList = updatedList.Where(e => typeof(T).GetProperty("Dis").GetValue(e).Equals(0));
                     var observableCollection = new ObservableCollection<T>(updatedList);
                     collectionProperty.SetValue(this, observableCollection);
-    
+                    
                 }
                 else
                 {

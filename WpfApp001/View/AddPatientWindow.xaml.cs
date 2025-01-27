@@ -21,9 +21,11 @@ namespace WpfApp001.View
     /// </summary>
     public partial class AddPatientWindow : Window
     {
-        public AddPatientWindow()
+        private AdminPacjenciPage _parentPage;
+        public AddPatientWindow(AdminPacjenciPage parentPage)
         {
             InitializeComponent();
+            _parentPage = parentPage;
         }
 
         private void AddPatient_Click(object sender, RoutedEventArgs e)
@@ -50,7 +52,16 @@ namespace WpfApp001.View
             };
 
             Storage.Instance.UpdateElement(newPatient);
-            
+
+            _parentPage.dataGrid.ItemsSource = null;
+            _parentPage.dataGrid.ItemsSource = Storage.Instance.Pacjencis;
+
+            this.Close();
+        }
+
+        private void AnulujButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

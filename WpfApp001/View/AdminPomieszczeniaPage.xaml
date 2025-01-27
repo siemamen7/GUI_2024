@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WpfApp001.View"
+      xmlns:data="clr-namespace:WpfApp001.Data"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="AdminPomieszczeniaPage">
@@ -22,37 +23,61 @@
             </Grid.ColumnDefinitions>
 
             <!-- First Name Field -->
-            <StackPanel Grid.Column="0" HorizontalAlignment="Left">
-                <Label Content="Imię" HorizontalAlignment="Center" Margin="5" FontSize="16" Foreground="#d0d6d6"/>
-                <TextBox Style="{StaticResource CustomTextBoxStyle}" Name="FirstNameTextBox" Width="200" Margin="5" FontSize="22"/>
+            <StackPanel Grid.Column="0" HorizontalAlignment="Center">
+                <Label Content="Nazwa" HorizontalAlignment="Center" Margin="5" FontSize="16" Foreground="#d0d6d6"/>
+                <TextBox Style="{StaticResource CustomTextBoxStyle}" Name="FirstNameTextBox" Width="200" Height="45" FontSize="22"/>
             </StackPanel>
 
             <!-- Last Name Field -->
-            <StackPanel Grid.Column="1" HorizontalAlignment="Left">
-                <Label Content="Nazwisko" HorizontalAlignment="Center" Margin="5" FontSize="16" Foreground="#d0d6d6"/>
-                <TextBox Style="{StaticResource CustomTextBoxStyle}" Name="LastNameTextBox" Width="200" Margin="5" FontSize="22"/>
+            <StackPanel Grid.Column="1" HorizontalAlignment="Center">
+                <Label Content="Typ pomieszczenia" HorizontalAlignment="Center" Margin="5" FontSize="16" Foreground="#d0d6d6"/>
+                <ComboBox
+                    Name="TypCB"
+                    Style="{StaticResource CustomComboBoxStyle}"
+                    Width="200"
+                    Height="45"
+                    ItemsSource="{Binding Path=TypyPoms, Source={x:Static data:Storage.Instance}}"
+                    DisplayMemberPath="Nazwa">
+                    <ComboBox.ItemContainerStyle>
+                        <Style TargetType="ComboBoxItem" BasedOn="{StaticResource CustomComboBoxItemStyle}" />
+                    </ComboBox.ItemContainerStyle>
+                </ComboBox>
             </StackPanel>
 
             <!-- PESEL Field -->
-            <StackPanel Grid.Column="2" HorizontalAlignment="Left">
-                <Label Content="PESEL" HorizontalAlignment="Center" Margin="5" FontSize="16" Foreground="#d0d6d6"/>
-                <TextBox Style="{StaticResource CustomTextBoxStyle}" Name="PeselTextBox" Width="200" Margin="5" FontSize="22"/>
+            <StackPanel Grid.Column="2" HorizontalAlignment="Center">
+                <Label Content="Dostępność" HorizontalAlignment="Center" Margin="5" FontSize="16" Foreground="#d0d6d6"/>
+                <ComboBox
+                    Name="DostepnoscCB"
+                    Style="{StaticResource CustomComboBoxStyle}"
+                    Width="200"
+                    Height="45"
+                    ItemsSource="{Binding Path=Pomieszczenia, Source={x:Static data:Storage.Instance}}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Dostepnosc}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                    <ComboBox.ItemContainerStyle>
+                        <Style TargetType="ComboBoxItem" BasedOn="{StaticResource CustomComboBoxItemStyle}" />
+                    </ComboBox.ItemContainerStyle>
+                </ComboBox>
             </StackPanel>
 
             <!-- Search Button -->
-            <Button Style="{StaticResource CustomSendButtonStyle}" Grid.Column="3" Content="Szukaj" Width="100" Margin="5,21,5,0" VerticalAlignment="Top" Height="58"/>
+            <Button Style="{StaticResource CustomSendButtonStyle}" Grid.Column="3" Content="Szukaj" Width="100" Margin="5,21,5,0" VerticalAlignment="Top" Height="58" Click="SearchButton_Click"/>
         </Grid>
         <!-- Scrollable DataGrid -->
         <DataGrid Grid.Row="1"
             Style="{StaticResource CustomDataGridStyle}" 
-                  x:Name="dataGrid" 
+                  x:Name="PomieszczeniaDataGrid" 
                   AutoGenerateColumns="False" 
                   HorizontalScrollBarVisibility="Auto" 
                   VerticalScrollBarVisibility="Auto"
                   HeadersVisibility="Column">
             <DataGrid.Columns>
                 <!-- Column for Imię -->
-                <DataGridTextColumn Header="Imię" Binding="{Binding Imie}" Width="*">
+                <DataGridTextColumn Header="Imię" Binding="{Binding Nazwa}" Width="*">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="TextWrapping" Value="Wrap" />
@@ -61,7 +86,7 @@
                 </DataGridTextColumn>
 
                 <!-- Column for Nazwisko -->
-                <DataGridTextColumn Header="Nazwisko" Binding="{Binding Nazwisko}" Width="*">
+                <DataGridTextColumn Header="Nazwisko" Binding="{Binding IdTypyPomNavigation.Nazwa}" Width="*">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="TextWrapping" Value="Wrap" />
@@ -70,7 +95,7 @@
                 </DataGridTextColumn>
 
                 <!-- Column for PESEL -->
-                <DataGridTextColumn Header="PESEL" Binding="{Binding Pesel}" Width="*">
+                <DataGridTextColumn Header="PESEL" Binding="{Binding Dostepnosc}" Width="*">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="TextWrapping" Value="Wrap" />
@@ -79,7 +104,7 @@
                 </DataGridTextColumn>
 
                 <!-- Column for Data urodzenia -->
-                <DataGridTextColumn Header="Data urodzenia" Binding="{Binding DataUrodzenia}" Width="*">
+                <DataGridTextColumn Header="Data urodzenia" Binding="{Binding Komentarz}" Width="*">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="TextWrapping" Value="Wrap" />
@@ -87,14 +112,6 @@
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
 
-                <!-- Column for Informacje -->
-                <DataGridTextColumn Header="Informacje" Binding="{Binding Informacje}" Width="*">
-                    <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="TextWrapping" Value="Wrap" />
-                        </Style>
-                    </DataGridTextColumn.ElementStyle>
-                </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

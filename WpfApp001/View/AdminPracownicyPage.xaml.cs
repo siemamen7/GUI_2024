@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp001.Data;
 using WpfApp001.EntityFramework;
 using WpfApp001.ViewModel;
 
@@ -26,8 +27,25 @@ namespace WpfApp001.View
         public AdminPracownicyPage()
         {
             InitializeComponent();
+            EmployeesDataGrid.ItemsSource = Storage.Instance.Pracownicies;
         }
 
-        
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            string firstNameFilter = FirstNameTextBox.Text.ToLower();
+            string lastNameFilter = LastNameTextBox.Text.ToLower();
+            string positionFilter = ((ComboBoxItem)PositionComboBox.SelectedItem)?.Content.ToString().ToLower();
+
+            var filteredEmployees = Storage.Instance.Pracownicies
+                .Where(employee =>
+                    (string.IsNullOrEmpty(firstNameFilter) || employee.Imie.ToLower().Contains(firstNameFilter)) &&
+                    (string.IsNullOrEmpty(lastNameFilter) || employee.Nazwisko.ToLower().Contains(lastNameFilter)) &&
+                    (string.IsNullOrEmpty(positionFilter) || employee.IdFunkcjiNavigation.Nazwa.ToLower().Contains(positionFilter))
+                ).ToList();
+
+            EmployeesDataGrid.ItemsSource = null;
+            EmployeesDataGrid.ItemsSource = filteredEmployees;
+        }
+
     }
 }

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp001.Data;
 
 namespace WpfApp001.View
 {
@@ -23,6 +24,23 @@ namespace WpfApp001.View
         public AdminPomieszczeniaPage()
         {
             InitializeComponent();
+            PomieszczeniaDataGrid.ItemsSource = Storage.Instance.Pomieszczenia;
+        }
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            string roomNameFilter = FirstNameTextBox.Text.ToLower();
+            string typeFilter = ((ComboBoxItem)TypCB.SelectedItem)?.Content.ToString().ToLower();
+            string dostepnoscFilter = ((ComboBoxItem)DostepnoscCB.SelectedItem)?.Content.ToString().ToLower();
+
+            var filteredRooms = Storage.Instance.Pomieszczenia
+                .Where(room =>
+                    (string.IsNullOrEmpty(roomNameFilter) || room.Nazwa.ToLower().Contains(roomNameFilter)) &&
+                    (string.IsNullOrEmpty(typeFilter) || room.IdTypyPomNavigation.Nazwa.ToLower().Contains(typeFilter)) &&
+                    (string.IsNullOrEmpty(dostepnoscFilter) || room.Dostepnosc.ToLower().Contains(dostepnoscFilter))
+                ).ToList();
+
+            PomieszczeniaDataGrid.ItemsSource = null;
+            PomieszczeniaDataGrid.ItemsSource = filteredRooms;
         }
     }
 }

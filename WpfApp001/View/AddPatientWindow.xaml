@@ -43,12 +43,12 @@
         <TextBox Style="{StaticResource CustomTextBoxStyle}" Grid.Row="0" Grid.Column="1" Name="ImieTextBox" Width="230" Height="40" MaxLength="100"/>
         <TextBox Style="{StaticResource CustomTextBoxStyle}" Grid.Row="1" Grid.Column="1" Name="NazwiskoTextBox" Width="230" Height="40" MaxLength="100"/>
         <TextBox Style="{StaticResource CustomTextBoxStyle}" Grid.Row="2" Grid.Column="1" Name="PeselTextBox" Width="230" Height="40" MaxLength="11"/>
-        <DatePicker Style="{StaticResource CustomDatePickerStyle}" Name="DataUrodzeniaDP"  Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" Width="230" Height="40"></DatePicker>
+        <DatePicker Name="DataUrodzeniaDP"  Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" Width="230" Height="40"></DatePicker>
         <TextBox Style="{StaticResource CustomTextBoxStyle}" Grid.Row="4" Grid.Column="1" Name="InformacjeTextBox" Width="250" Height="100" ScrollViewer.VerticalScrollBarVisibility="Auto" MaxLength="500" TextWrapping="Wrap"/>
 
         <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Style="{StaticResource CustomSendButtonStyle}" Content="Dodaj"  Name="DodajPacjentaButton" Width="100" Height="40" Margin="0,0,10,0"/>
-            <Button Style="{StaticResource CustomSendButtonStyle}" Name="AnulujButton"  Width="100" Height="40">Anuluj</Button>
+            <Button Style="{StaticResource CustomSendButtonStyle}" Content="Dodaj"  Name="DodajPacjentaButton" Width="100" Height="40" Margin="0,0,10,0" Click="AddPatient_Click"/>
+            <Button Style="{StaticResource CustomSendButtonStyle}" Name="AnulujButton"  Width="100" Height="40" Click="AnulujButton_Click">Anuluj</Button>
         </StackPanel>
     </Grid>
 

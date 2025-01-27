@@ -57,7 +57,7 @@
         <DatePicker Name="DataUrodzeniaDP"  Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" Width="230" Height="40"></DatePicker>
         <TextBox Style="{StaticResource CustomTextBoxStyle}" Grid.Row="4" Grid.Column="1" Name="TelefonTextBox" Width="230" Height="40" MaxLength="20"/>
         <TextBox Style="{StaticResource CustomTextBoxStyle}" Grid.Row="5" Grid.Column="1" Name="EmailTextBox" Width="230" Height="40" MaxLength="100"/>
-        <ComboBox ItemsSource="{Binding Funkcjes}" DisplayMemberPath="Nazwa" SelectedValuePath="Id" SelectedValue="{Binding Id}"  Grid.Row="6" Grid.Column="1" Name="TypPracownikaCB" Width="230" Height="30"/>
+        <ComboBox Style="{StaticResource CustomComboBoxStyle}" ItemsSource="{Binding Funkcjes}" DisplayMemberPath="Nazwa" SelectedValuePath="Id" SelectedValue="{Binding Id}"  Grid.Row="6" Grid.Column="1" Name="TypPracownikaCB" Width="230" Height="30"/>
 
 
         <StackPanel Grid.Row="7" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">

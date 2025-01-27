@@ -75,7 +75,8 @@
         </Grid>
 
 
-        <DataGrid Grid.Row="1"
+        <DataGrid Style="{StaticResource CustomDataGridStyle}"
+            Grid.Row="1"
                   ItemsSource="{Binding FilteredEvents}"
                   x:Name="TimetableGrid" 
                   AutoGenerateColumns="False" 

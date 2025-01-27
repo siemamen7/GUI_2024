@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp001.Data;
 
 namespace WpfApp001.View
 {
@@ -23,6 +24,13 @@ namespace WpfApp001.View
         public AdminPacjenciPage()
         {
             InitializeComponent();
+            dataGrid.ItemsSource = Storage.Instance.Pacjencis;
+        }
+
+        private void DodajPacjentaButton_Click(object sender, RoutedEventArgs e)
+        {
+            var addPatientWindow = new AddPatientWindow(this);
+            addPatientWindow.ShowDialog();
         }
     }
 }
