@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MySqlX.XDevAPI.Common;
 
 namespace WpfApp001.View
 {
@@ -58,6 +59,18 @@ namespace WpfApp001.View
         private void GoToMailButton_Click(object sender, RoutedEventArgs e)
         {
             AdminUserMainFrame.Source = new Uri("Mail_Frame.xaml", UriKind.Relative);
+        }
+
+        private void LogOutButton_Click(object sender, RoutedEventArgs e)
+        {
+            var result = MessageBox.Show($"Czy chcesz się wylogować?",
+                                             "Wyloguj się",
+                                             MessageBoxButton.YesNo,
+                                             MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                NavigationService.Navigate(new Uri("View/StartupPanel.xaml", UriKind.Relative));
+            }
         }
     }
 }

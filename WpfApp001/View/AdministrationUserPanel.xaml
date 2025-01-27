@@ -32,7 +32,7 @@
         </StackPanel>
         <StackPanel/>
 
-        <Button Grid.Row="0" Grid.Column="2" Style="{StaticResource RoundedButtonStyle}" Margin="10,10,10,10">
+        <Button Name="LogOutButton" Grid.Row="0" Grid.Column="2" Style="{StaticResource RoundedButtonStyle}" Margin="10,10,10,10" Click="LogOutButton_Click">
             <Button.Content>
                 <Image Source="pack://application:,,,/WpfApp001;component/Styles/Icons/logout.png" />
             </Button.Content>
