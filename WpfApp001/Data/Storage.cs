@@ -121,9 +121,9 @@ namespace WpfApp001.Data
 
                 if (collectionProperty != null)
                 {
- 
-                    var updatedList = dbSet.ToList().AsEnumerable();
-                    updatedList = updatedList.Where(e => typeof(T).GetProperty("Dis").GetValue(e).Equals(0));
+
+                    var updatedList = dbSet.ToList();
+                    //updatedList = updatedList.Where(e => typeof(T).GetProperty("Dis").GetValue(e).Equals(0)).ToList();
                     var observableCollection = new ObservableCollection<T>(updatedList);
                     collectionProperty.SetValue(this, observableCollection);
                     
@@ -132,8 +132,6 @@ namespace WpfApp001.Data
                 {
                     throw new ArgumentException($"No ObservableCollection found for type {typeof(T).Name}");
                 }
-
-
 
 
             }

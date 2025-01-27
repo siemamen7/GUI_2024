@@ -48,6 +48,7 @@ namespace WpfApp001.View
                 Pesel = PeselTextBox.Text,
                 DataUrodzenia = DateOnly.FromDateTime(DataUrodzeniaDP.SelectedDate.Value),
                 DataRejestracji = DateOnly.FromDateTime(DateTime.Now),
+                Informacje = InformacjeTextBox.Text,
                 Dis = 0 // aktywny
             };
 
