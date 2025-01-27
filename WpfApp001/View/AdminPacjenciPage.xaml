@@ -9,6 +9,59 @@
       Title="AdminPacjenciPage">
 
     <Grid>
-        
+        <!-- Scrollable DataGrid -->
+        <DataGrid Style="{StaticResource CustomDataGridStyle}" 
+                  x:Name="dataGrid" 
+                  AutoGenerateColumns="False" 
+                  HorizontalScrollBarVisibility="Auto" 
+                  VerticalScrollBarVisibility="Auto"
+                  HeadersVisibility="Column">
+            <DataGrid.Columns>
+                <!-- Column for Imię -->
+                <DataGridTextColumn Header="Imię" Binding="{Binding Imie}" Width="*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextWrapping" Value="Wrap" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+
+                <!-- Column for Nazwisko -->
+                <DataGridTextColumn Header="Nazwisko" Binding="{Binding Nazwisko}" Width="*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextWrapping" Value="Wrap" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+
+                <!-- Column for PESEL -->
+                <DataGridTextColumn Header="PESEL" Binding="{Binding Pesel}" Width="*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextWrapping" Value="Wrap" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+
+                <!-- Column for Data urodzenia -->
+                <DataGridTextColumn Header="Data urodzenia" Binding="{Binding DataUrodzenia}" Width="*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextWrapping" Value="Wrap" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+
+                <!-- Column for Informacje -->
+                <DataGridTextColumn Header="Informacje" Binding="{Binding Informacje}" Width="*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextWrapping" Value="Wrap" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Page>
