@@ -24,13 +24,13 @@
 
             <!-- First Name Field -->
             <StackPanel Grid.Column="0" HorizontalAlignment="Center">
-                <Label Content="Nazwa" HorizontalAlignment="Center" Margin="5" FontSize="16" Foreground="#d0d6d6"/>
-                <TextBox Style="{StaticResource CustomTextBoxStyle}" Name="FirstNameTextBox" Width="200" Height="45" FontSize="22"/>
+                <Label Content="Nazwa" HorizontalAlignment="Center" Margin="5" FontSize="12" Foreground="#d0d6d6"/>
+                <TextBox Style="{StaticResource CustomTextBoxStyle}" Name="FirstNameTextBox" Width="200" Height="45" FontSize="16"/>
             </StackPanel>
 
             <!-- Last Name Field -->
             <StackPanel Grid.Column="1" HorizontalAlignment="Center">
-                <Label Content="Typ pomieszczenia" HorizontalAlignment="Center" Margin="5" FontSize="16" Foreground="#d0d6d6"/>
+                <Label Content="Typ pomieszczenia" HorizontalAlignment="Center" Margin="5" FontSize="12" Foreground="#d0d6d6"/>
                 <ComboBox
                     Name="TypCB"
                     Style="{StaticResource CustomComboBoxStyle}"
@@ -46,7 +46,7 @@
 
             <!-- PESEL Field -->
             <StackPanel Grid.Column="2" HorizontalAlignment="Center">
-                <Label Content="Dostępność" HorizontalAlignment="Center" Margin="5" FontSize="16" Foreground="#d0d6d6"/>
+                <Label Content="Dostępność" HorizontalAlignment="Center" Margin="5" FontSize="12" Foreground="#d0d6d6"/>
                 <ComboBox
                     Name="DostepnoscCB"
                     Style="{StaticResource CustomComboBoxStyle}"
