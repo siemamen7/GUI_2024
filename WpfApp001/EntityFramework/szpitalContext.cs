@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Pomelo.EntityFrameworkCore.MySql.Scaffolding.Internal;
 
 namespace WpfApp001.EntityFramework;
@@ -41,25 +43,44 @@ public partial class szpitalContext : DbContext
     public virtual DbSet<Wydarzenium> Wydarzenia { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseMySql("server=projekt-interfejsy.mysql.database.azure.com;database=szpital;userid=szczuras;password=Interfejsy123;sslmode=Required", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.39-mysql"));
+    {
+        if (!optionsBuilder.IsConfigured)
+        {
+            // Load configuration from appsettings.json
+            var configuration = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory()) // Ensure correct path
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+            .Build();
+
+            string connectionString = configuration.GetConnectionString("MyDbContext");
+
+            optionsBuilder.UseMySql(connectionString, Microsoft.EntityFrameworkCore.ServerVersion.Parse("10.4.32-mariadb"));
+        }
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder
-            .UseCollation("utf8mb3_general_ci")
-            .HasCharSet("utf8mb3");
+            .UseCollation("utf8mb4_general_ci")
+            .HasCharSet("utf8mb4");
 
         modelBuilder.Entity<Funkcje>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.ToTable("funkcje");
+            entity
+                .ToTable("funkcje")
+                .HasCharSet("utf8")
+                .UseCollation("utf8_general_ci");
 
             entity.HasIndex(e => e.Nazwa, "nazwa_UNIQUE").IsUnique();
 
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Dis).HasColumnName("dis");
+            entity.Property(e => e.Id)
+                .HasColumnType("int(11)")
+                .HasColumnName("id");
+            entity.Property(e => e.Dis)
+                .HasColumnType("tinyint(4)")
+                .HasColumnName("dis");
             entity.Property(e => e.Nazwa)
                 .HasMaxLength(100)
                 .HasColumnName("nazwa");
@@ -69,18 +90,28 @@ public partial class szpitalContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.ToTable("mailmessages");
+            entity
+                .ToTable("mailmessages")
+                .HasCharSet("utf8")
+                .UseCollation("utf8_general_ci");
 
             entity.HasIndex(e => e.SenderId, "FK_mail1_idx");
 
             entity.HasIndex(e => e.ReceiverId, "FK_mail2_idx");
 
+            entity.Property(e => e.Id).HasColumnType("int(11)");
             entity.Property(e => e.Content)
                 .HasMaxLength(255)
                 .HasColumnName("content");
-            entity.Property(e => e.Dis).HasColumnName("dis");
-            entity.Property(e => e.ReceiverId).HasColumnName("receiverId");
-            entity.Property(e => e.SenderId).HasColumnName("senderId");
+            entity.Property(e => e.Dis)
+                .HasColumnType("tinyint(4)")
+                .HasColumnName("dis");
+            entity.Property(e => e.ReceiverId)
+                .HasColumnType("int(11)")
+                .HasColumnName("receiverId");
+            entity.Property(e => e.SenderId)
+                .HasColumnType("int(11)")
+                .HasColumnName("senderId");
 
             entity.HasOne(d => d.Receiver).WithMany(p => p.MailmessageReceivers)
                 .HasForeignKey(d => d.ReceiverId)
@@ -97,15 +128,22 @@ public partial class szpitalContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.ToTable("pacjenci");
+            entity
+                .ToTable("pacjenci")
+                .HasCharSet("utf8")
+                .UseCollation("utf8_general_ci");
 
             entity.HasIndex(e => e.Pesel, "pesel_UNIQUE").IsUnique();
 
-            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Id)
+                .HasColumnType("int(11)")
+                .HasColumnName("id");
             entity.Property(e => e.DataRejestracji).HasColumnName("data_rejestracji");
             entity.Property(e => e.DataUrodzenia).HasColumnName("data_urodzenia");
             entity.Property(e => e.DataZgonu).HasColumnName("data_zgonu");
-            entity.Property(e => e.Dis).HasColumnName("dis");
+            entity.Property(e => e.Dis)
+                .HasColumnType("tinyint(4)")
+                .HasColumnName("dis");
             entity.Property(e => e.Imie)
                 .HasMaxLength(100)
                 .HasColumnName("imie");
@@ -124,18 +162,27 @@ public partial class szpitalContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.ToTable("pomieszczenia");
+            entity
+                .ToTable("pomieszczenia")
+                .HasCharSet("utf8")
+                .UseCollation("utf8_general_ci");
 
             entity.HasIndex(e => e.IdTypyPom, "FK_pomieszczenia_typy_pom_idx");
 
             entity.HasIndex(e => e.Nazwa, "nazwa_UNIQUE").IsUnique();
 
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Dis).HasColumnName("dis");
+            entity.Property(e => e.Id)
+                .HasColumnType("int(11)")
+                .HasColumnName("id");
+            entity.Property(e => e.Dis)
+                .HasColumnType("tinyint(4)")
+                .HasColumnName("dis");
             entity.Property(e => e.Dostepnosc)
                 .HasMaxLength(100)
                 .HasColumnName("dostepnosc");
-            entity.Property(e => e.IdTypyPom).HasColumnName("id_typy_pom");
+            entity.Property(e => e.IdTypyPom)
+                .HasColumnType("int(11)")
+                .HasColumnName("id_typy_pom");
             entity.Property(e => e.Komentarz)
                 .HasMaxLength(200)
                 .HasColumnName("komentarz");
@@ -153,23 +200,34 @@ public partial class szpitalContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.ToTable("pracownicy");
+            entity
+                .ToTable("pracownicy")
+                .HasCharSet("utf8")
+                .UseCollation("utf8_general_ci");
 
             entity.HasIndex(e => e.IdFunkcji, "FK_pracownicy_funkcje_idx");
 
             entity.HasIndex(e => e.Pesel, "pesel_UNIQUE").IsUnique();
 
-            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Id)
+                .HasColumnType("int(11)")
+                .HasColumnName("id");
             entity.Property(e => e.DataUrodzenia).HasColumnName("data_urodzenia");
-            entity.Property(e => e.Dis).HasColumnName("dis");
+            entity.Property(e => e.Dis)
+                .HasColumnType("tinyint(3) unsigned")
+                .HasColumnName("dis");
             entity.Property(e => e.Email)
                 .HasMaxLength(100)
                 .HasColumnName("email");
-            entity.Property(e => e.IdFunkcji).HasColumnName("id_funkcji");
+            entity.Property(e => e.IdFunkcji)
+                .HasColumnType("int(11)")
+                .HasColumnName("id_funkcji");
             entity.Property(e => e.Imie)
                 .HasMaxLength(100)
                 .HasColumnName("imie");
-            entity.Property(e => e.Medyczny).HasColumnName("medyczny");
+            entity.Property(e => e.Medyczny)
+                .HasColumnType("tinyint(3) unsigned")
+                .HasColumnName("medyczny");
             entity.Property(e => e.Nazwisko)
                 .HasMaxLength(100)
                 .HasColumnName("nazwisko");
@@ -189,12 +247,19 @@ public partial class szpitalContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.ToTable("typy_pom");
+            entity
+                .ToTable("typy_pom")
+                .HasCharSet("utf8")
+                .UseCollation("utf8_general_ci");
 
             entity.HasIndex(e => e.Nazwa, "nazwa_UNIQUE").IsUnique();
 
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Dis).HasColumnName("dis");
+            entity.Property(e => e.Id)
+                .HasColumnType("int(11)")
+                .HasColumnName("id");
+            entity.Property(e => e.Dis)
+                .HasColumnType("tinyint(4)")
+                .HasColumnName("dis");
             entity.Property(e => e.Nazwa)
                 .HasMaxLength(100)
                 .HasColumnName("nazwa");
@@ -204,7 +269,10 @@ public partial class szpitalContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.ToTable("typy_wyd");
+            entity
+                .ToTable("typy_wyd")
+                .HasCharSet("utf8")
+                .UseCollation("utf8_general_ci");
 
             entity.HasIndex(e => e.IdWymaganegoPom, "FK_typy_wyd_pomieszczenia_idx");
 
@@ -212,10 +280,18 @@ public partial class szpitalContext : DbContext
 
             entity.HasIndex(e => e.Nazwa, "nazwa_UNIQUE").IsUnique();
 
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Dis).HasColumnName("dis");
-            entity.Property(e => e.IdWymaganegoPom).HasColumnName("id_wymaganego_pom");
-            entity.Property(e => e.IdWymaganejFunk).HasColumnName("id_wymaganej_funk");
+            entity.Property(e => e.Id)
+                .HasColumnType("int(11)")
+                .HasColumnName("id");
+            entity.Property(e => e.Dis)
+                .HasColumnType("tinyint(4)")
+                .HasColumnName("dis");
+            entity.Property(e => e.IdWymaganegoPom)
+                .HasColumnType("int(11)")
+                .HasColumnName("id_wymaganego_pom");
+            entity.Property(e => e.IdWymaganejFunk)
+                .HasColumnType("int(11)")
+                .HasColumnName("id_wymaganej_funk");
             entity.Property(e => e.Nazwa)
                 .HasMaxLength(100)
                 .HasColumnName("nazwa");
@@ -233,15 +309,24 @@ public partial class szpitalContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.ToTable("urlopy");
+            entity
+                .ToTable("urlopy")
+                .HasCharSet("utf8")
+                .UseCollation("utf8_general_ci");
 
             entity.HasIndex(e => e.IdPracownicy, "FK_urlopy_pracownicy_idx");
 
-            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Id)
+                .HasColumnType("int(11)")
+                .HasColumnName("id");
             entity.Property(e => e.DataRozpoczecia).HasColumnName("data_rozpoczecia");
             entity.Property(e => e.DataZakonczenia).HasColumnName("data_zakonczenia");
-            entity.Property(e => e.Dis).HasColumnName("dis");
-            entity.Property(e => e.IdPracownicy).HasColumnName("id_pracownicy");
+            entity.Property(e => e.Dis)
+                .HasColumnType("tinyint(4)")
+                .HasColumnName("dis");
+            entity.Property(e => e.IdPracownicy)
+                .HasColumnType("int(11)")
+                .HasColumnName("id_pracownicy");
             entity.Property(e => e.TypUrlopu)
                 .HasMaxLength(100)
                 .HasColumnName("typ_urlopu");
@@ -256,7 +341,10 @@ public partial class szpitalContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.ToTable("uzytkownicy");
+            entity
+                .ToTable("uzytkownicy")
+                .HasCharSet("utf8")
+                .UseCollation("utf8_general_ci");
 
             entity.HasIndex(e => e.IdPracownika, "FK_uzytkownicy_pracownicy_idx");
 
@@ -264,7 +352,9 @@ public partial class szpitalContext : DbContext
 
             entity.HasIndex(e => e.Login, "login_UNIQUE").IsUnique();
 
-            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Id)
+                .HasColumnType("int(11)")
+                .HasColumnName("id");
             entity.Property(e => e.Dis)
                 .HasDefaultValueSql("'000'")
                 .HasColumnType("tinyint(3) unsigned zerofill")
@@ -272,11 +362,15 @@ public partial class szpitalContext : DbContext
             entity.Property(e => e.Haslo)
                 .HasMaxLength(100)
                 .HasColumnName("haslo");
-            entity.Property(e => e.IdPracownika).HasColumnName("id_pracownika");
+            entity.Property(e => e.IdPracownika)
+                .HasColumnType("int(11)")
+                .HasColumnName("id_pracownika");
             entity.Property(e => e.Login)
                 .HasMaxLength(100)
                 .HasColumnName("login");
-            entity.Property(e => e.Medyczny).HasColumnName("medyczny");
+            entity.Property(e => e.Medyczny)
+                .HasColumnType("tinyint(4)")
+                .HasColumnName("medyczny");
 
             entity.HasOne(d => d.IdPracownikaNavigation).WithMany(p => p.Uzytkownicies)
                 .HasForeignKey(d => d.IdPracownika)
@@ -288,16 +382,27 @@ public partial class szpitalContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.ToTable("wyd_pacj");
+            entity
+                .ToTable("wyd_pacj")
+                .HasCharSet("utf8")
+                .UseCollation("utf8_general_ci");
 
             entity.HasIndex(e => e.IdPacjenci, "wyd_pacj_pacjenci_idx");
 
             entity.HasIndex(e => e.IdWydarzenia, "wyd_pacj_wydarzenia_idx");
 
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Dis).HasColumnName("dis");
-            entity.Property(e => e.IdPacjenci).HasColumnName("id_pacjenci");
-            entity.Property(e => e.IdWydarzenia).HasColumnName("id_wydarzenia");
+            entity.Property(e => e.Id)
+                .HasColumnType("int(11)")
+                .HasColumnName("id");
+            entity.Property(e => e.Dis)
+                .HasColumnType("tinyint(4)")
+                .HasColumnName("dis");
+            entity.Property(e => e.IdPacjenci)
+                .HasColumnType("int(11)")
+                .HasColumnName("id_pacjenci");
+            entity.Property(e => e.IdWydarzenia)
+                .HasColumnType("int(11)")
+                .HasColumnName("id_wydarzenia");
 
             entity.HasOne(d => d.IdPacjenciNavigation).WithMany(p => p.WydPacjs)
                 .HasForeignKey(d => d.IdPacjenci)
@@ -314,16 +419,27 @@ public partial class szpitalContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.ToTable("wyd_prac");
+            entity
+                .ToTable("wyd_prac")
+                .HasCharSet("utf8")
+                .UseCollation("utf8_general_ci");
 
             entity.HasIndex(e => e.IdPracownicy, "FK_wyd_prac_pracownicy_idx");
 
             entity.HasIndex(e => e.IdWydarzenia, "FK_wyd_prac_wydarzenia_idx");
 
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Dis).HasColumnName("dis");
-            entity.Property(e => e.IdPracownicy).HasColumnName("id_pracownicy");
-            entity.Property(e => e.IdWydarzenia).HasColumnName("id_wydarzenia");
+            entity.Property(e => e.Id)
+                .HasColumnType("int(11)")
+                .HasColumnName("id");
+            entity.Property(e => e.Dis)
+                .HasColumnType("tinyint(4)")
+                .HasColumnName("dis");
+            entity.Property(e => e.IdPracownicy)
+                .HasColumnType("int(11)")
+                .HasColumnName("id_pracownicy");
+            entity.Property(e => e.IdWydarzenia)
+                .HasColumnType("int(11)")
+                .HasColumnName("id_wydarzenia");
 
             entity.HasOne(d => d.IdPracownicyNavigation).WithMany(p => p.WydPracs)
                 .HasForeignKey(d => d.IdPracownicy)
@@ -340,19 +456,30 @@ public partial class szpitalContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.ToTable("wydarzenia");
+            entity
+                .ToTable("wydarzenia")
+                .HasCharSet("utf8")
+                .UseCollation("utf8_general_ci");
 
             entity.HasIndex(e => e.IdPomieszczenia, "FK_wydarzenia_pomieszczenia_idx");
 
             entity.HasIndex(e => e.IdTypyWyd, "FK_wydarzenia_typy_wyd_idx");
 
-            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Id)
+                .HasColumnType("int(11)")
+                .HasColumnName("id");
             entity.Property(e => e.DataICzas)
                 .HasColumnType("datetime")
                 .HasColumnName("data_i_czas");
-            entity.Property(e => e.Dis).HasColumnName("dis");
-            entity.Property(e => e.IdPomieszczenia).HasColumnName("id_pomieszczenia");
-            entity.Property(e => e.IdTypyWyd).HasColumnName("id_typy_wyd");
+            entity.Property(e => e.Dis)
+                .HasColumnType("tinyint(4)")
+                .HasColumnName("dis");
+            entity.Property(e => e.IdPomieszczenia)
+                .HasColumnType("int(11)")
+                .HasColumnName("id_pomieszczenia");
+            entity.Property(e => e.IdTypyWyd)
+                .HasColumnType("int(11)")
+                .HasColumnName("id_typy_wyd");
             entity.Property(e => e.Opis)
                 .HasMaxLength(500)
                 .HasColumnName("opis");
